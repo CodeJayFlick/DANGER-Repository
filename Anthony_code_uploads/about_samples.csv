@@ -3,3 +3,4 @@ modbot.py,False,Anthony
 discourse.py,False,https://github.com/graydenshand/fluent_discourse
 games_list.py,False,Anthony
 discourse_chatgpt.py,True,ChatGPT
+csv.py,False,https://github.com/python/cpython/blob/main/Lib/csv.py
