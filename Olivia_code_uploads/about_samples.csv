@@ -1,5 +1,5 @@
 Filename,AI,Source
-modbot.py,False,Olivia
+example.py,False,Olivia
 discourse.py,False,https://github.com/graydenshand/fluent_discourse
 games_list.py,False,Olivia
 discourse_chatgpt.py,True,ChatGPT
