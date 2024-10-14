@@ -1,0 +1,8 @@
+//Edit this to my file names
+Filename,AI,Source
+example.py,False,Olivia
+discourse.py,False,https://github.com/graydenshand/fluent_discourse
+games_list.py,False,Olivia
+discourse_chatgpt.py,True,ChatGPT
+csv.py,False,https://github.com/python/cpython/blob/main/Lib/csv.py
+modbot_chatgpt.py,True,ChatGPT
