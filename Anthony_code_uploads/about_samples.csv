@@ -1,7 +1,17 @@
-Filename,AI,Source
+Filename,AI,Source,Comments
 modbot.py,False,Anthony
 discourse.py,False,https://github.com/graydenshand/fluent_discourse
 games_list.py,False,Anthony
 discourse_chatgpt.py,True,ChatGPT
 csv.py,False,https://github.com/python/cpython/blob/main/Lib/csv.py
 modbot_chatgpt.py,True,ChatGPT
+datetime.py,False,https://svn.python.org/projects/python/branches/pep-0384/Lib/datetime.py
+pyperclip.py,False,https://github.com/asweigart/pyperclip
+unscramble_chatgpt.py,True,ChatGPT
+discourse_posts_histogram_chatgpt.py,True,ChatGPT
+chessbot_chatgpt.py,True,ChatGPT/Anthony
+mafia_detect_alignment_chatgpt.py,True,ChatGPT,Unbelievably Bad
+solar_system_chatgpt.py,True,ChatGPT
+mandelbrot_chatgpt.py,True,ChatGPT
+tic_tac_toe_chatgpt.py,True,ChatGPT
+chatbot_chatgpt.py,True,ChatGPT
