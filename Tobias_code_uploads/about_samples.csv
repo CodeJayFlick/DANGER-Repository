@@ -2,3 +2,5 @@ Filename,AI,Source
 billing_system.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
 Car.py,FALSE,Tobias
 SpendingTracker.py,FALSE,Tobias
+digital_clock.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
+AI_digital_clock,TRUE,Chatgpt
