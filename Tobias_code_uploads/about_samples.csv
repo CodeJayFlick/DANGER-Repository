@@ -15,3 +15,5 @@ iterative_merge_sort.py,FALSE,https://github.com/TheAlgorithms/Python/tree/maste
 AI_mergesort,TRUE,Chatgpt
 Calculator_app.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
 Game.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
+AI_calculator_app.py,TRUE,Chatgpt
+AI_Game.py,TRUE,Chatgpt
