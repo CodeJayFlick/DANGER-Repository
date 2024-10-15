@@ -2,3 +2,9 @@
 IntervalCheck.py,FALSE,https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/solutions/5901109/beats-100-tc-sc-simple-and-easy-to-understand-python-cpp-java/?envType=daily-question&envId=2024-10-12
 Diff.py,FALSE,https://github.com/Python-World/python-mini-projects/blob/master/projects/Diff_Util/diff.py
 aes_encode.py,FALSE,https://github.com/Python-World/python-mini-projects/blob/master/projects/Encrypt_and_decrypt_text/aes_encode.py
+TSPAI.py,TRUE,GPT-4
+FibAI.py,TRUE,GPT-4
+FibAIRec.py,TRUE,GPT-4
+LCSSAI.py,TRUE,GPT-4
+MergeListAI.py,TRUE,GPT-4
+MergeSortAI.py,TRUE,GPT-4

@@ -1,2 +1,5 @@
 Filename,AI,Source
-ArrayList.py,False,Kian
+array_list.py,False,Kian
+snake_chatgpt.py,True,ChatGPT
+sorts.py,False,Kian
+plot_sort_chatgpt.py,True,ChatGPT

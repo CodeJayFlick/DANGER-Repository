@@ -19,10 +19,10 @@ class ArrayList:
             print('Index out of bounds')
         else:
             self.list.append(0)
-            self.num_elements += 1
-            for i in range(self.num_elements, location):
+            for i in range(self.num_elements, location, -1):
                 self.list[i] = self.list[i - 1]
             self.list[location] = item
+            self.num_elements += 1
 
     def remove(self, location):
         if self.num_elements == 0:

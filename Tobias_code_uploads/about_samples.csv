@@ -2,3 +2,12 @@ Filename,AI,Source
 billing_system.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
 Car.py,FALSE,Tobias
 SpendingTracker.py,FALSE,Tobias
+digital_clock.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
+AI_digital_clock,TRUE,Chatgpt
+TicTacToe.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
+AI_TicTacToe.py,TRUE,Chatgpt
+Sudoku_Solver.py,FALSE,https://github.com/Python-World/python-mini-projects/tree/master
+BinarySearchTree,FALSE,https://github.com/OmkarPathak/Data-Structures-using-Python/tree/master
+AI_binarysearchtree,TRUE,Chatgpt
+AI_sudokusolver,TRUE,Chatgpt
+AI_billingsystem.py,TRUE,Chatgpt
