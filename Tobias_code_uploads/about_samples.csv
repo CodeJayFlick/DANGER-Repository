@@ -11,3 +11,5 @@ BinarySearchTree,FALSE,https://github.com/OmkarPathak/Data-Structures-using-Pyth
 AI_binarysearchtree,TRUE,Chatgpt
 AI_sudokusolver,TRUE,Chatgpt
 AI_billingsystem.py,TRUE,Chatgpt
+iterative_merge_sort.py,FALSE,https://github.com/TheAlgorithms/Python/tree/master
+AI_mergesort,TRUE,Chatgpt
