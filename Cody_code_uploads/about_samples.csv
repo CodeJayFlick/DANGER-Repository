@@ -1,24 +1,24 @@
-Python File ,,AI Used?,Source
-Numbers_To_Letters_ChatGPT.py,,Yes ,ChatGPT4
-create_account.py,,No,Myself
-example_scenes.py,,No,Github
-Item_Recommendations_ChatGPT,,Yes ,ChatGPT4
-SmartRail.py,,No,Myself
-Knapsack_Problem_ChatGPT.py,,Yes ,ChatGPT4
-Dijkstra_Algorithm_ChatGPT.py,,Yes ,ChatGPT4
-forcefield.py,,No,https://github.com/evenmn/generate-parameter-files/blob/master/genpot/forcefield.py
-Determine the best and worst dates for the investment,,No,https://github.com/Deevin07/Python-Projects/blob/main/Finance/Determine%20the%20worst%20and%20the%20best%20dates%20for%20the%20investment.py#L1
-Sentimental Analysis,,No,https://github.com/Deevin07/Python-Projects/blob/main/Sentimental%20Analysis/Sentimental%20analysis.py
-35_linkedlist node of nth  last element from the end,,No,https://github.com/SamirPaulb/Problem-Solving/blob/main/35_linkedlist%20node%20of%20nth%20%20last%20element%20from%20the%20end.py
-Dice.py,,No,https://github.com/CatolicaCodingClub/python-projects/blob/master/Kick%20off%20Projects/Rolling%20The%20Dice/Group%2010/Dice.py
-genetic_algo,,No,https://github.com/HarshCasper/Pythoneer/blob/master/Boxes/genetic_algo.py
-snake.py,,No,https://github.com/HarshCasper/Pythoneer/blob/master/Snake/snake.py
-KruskalsAlgorithm_ChatGPT.py,,Yes ,https://github.com/ASHISH-28-02/PYTHON__08/blob/main/KruskalsAlgorithm.py (AI written by inspection)
-calc.py,,No,https://github.com/fadhil-riyanto/python-gui-calculator/blob/master/calc.py
-amazon.py,,No,https://github.com/TreborNamor/Agressive-Store-Bots/blob/main/amazon.py
-Cee_Lo_ChatGPT.py,,Yes ,ChatGPT4
-Digital_Clock_ChatGPT.py,,Yes ,ChatGPT4
-Music_Player_ChatGPT.py,,Yes ,ChatGPT4
-Hotel_Management_ChatGPT.py,,Yes ,ChatGPT4
-Traffic_Simulation_ChatGPT.py,,Yes ,ChatGPT4
-Snake_Game_ChatGPT.py,,Yes ,ChatGPT4
+Python File ,AI Used?,Source
+Numbers_To_Letters_ChatGPT.py,Yes,ChatGPT4
+create_account.py,No,Cody
+example_scenes.py,No,Github
+Item_Recommendations_ChatGPT,Yes,ChatGPT4
+SmartRail.py,No,Cody
+Knapsack_Problem_ChatGPT.py,Yes,ChatGPT4
+Dijkstra_Algorithm_ChatGPT.py,Yes,ChatGPT4
+forcefield.py,No,https://github.com/evenmn/generate-parameter-files/blob/master/genpot/forcefield.py
+Determine the best and worst dates for the investment.py,No,https://github.com/Deevin07/Python-Projects/blob/main/Finance/Determine%20the%20worst%20and%20the%20best%20dates%20for%20the%20investment.py#L1
+Sentimental analysis.py,No,https://github.com/Deevin07/Python-Projects/blob/main/Sentimental%20Analysis/Sentimental%20analysis.py
+35_linkedlist node of nth  last element from the end.py,No,https://github.com/SamirPaulb/Problem-Solving/blob/main/35_linkedlist%20node%20of%20nth%20%20last%20element%20from%20the%20end.py
+Dice.py,No,https://github.com/CatolicaCodingClub/python-projects/blob/master/Kick%20off%20Projects/Rolling%20The%20Dice/Group%2010/Dice.py
+genetic_algo,No,https://github.com/HarshCasper/Pythoneer/blob/master/Boxes/genetic_algo.py
+snake.py,No,https://github.com/HarshCasper/Pythoneer/blob/master/Snake/snake.py
+KruskalsAlgorithm_ChatGPT.py,Yes,https://github.com/ASHISH-28-02/PYTHON__08/blob/main/KruskalsAlgorithm.py (AI written by inspection)
+calc.py,No,https://github.com/fadhil-riyanto/python-gui-calculator/blob/master/calc.py
+amazon.py,No,https://github.com/TreborNamor/Agressive-Store-Bots/blob/main/amazon.py
+Cee_Lo_ChatGPT.py,Yes,ChatGPT4
+Digital_Clock_ChatGPT.py,Yes,ChatGPT4
+Music_Player_ChatGPT.py,Yes,ChatGPT4
+Hotel_Management_ChatGPT.py,Yes,ChatGPT4
+Traffic_Simulation_ChatGPT.py,Yes,ChatGPT4
+Snake_Game_ChatGPT.py,Yes,ChatGPT4
