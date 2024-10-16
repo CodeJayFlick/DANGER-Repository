@@ -8,3 +8,5 @@ FibAIRec.py,TRUE,GPT-4
 LCSSAI.py,TRUE,GPT-4
 MergeListAI.py,TRUE,GPT-4
 MergeSortAI.py,TRUE,GPT-4
+TSPGHGRD.py,FALSE,https://github.com/allangomes/travelingSalesman/blob/master/greedy.py
+TSPGHBRT.py,FALSE,https://github.com/allangomes/travelingSalesman/blob/master/brute.py
