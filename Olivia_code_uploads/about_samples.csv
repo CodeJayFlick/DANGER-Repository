@@ -1,8 +1,11 @@
-//Edit this to my file names
-Filename,AI,Source
-example.py,False,Olivia
-discourse.py,False,https://github.com/graydenshand/fluent_discourse
-binarySearchTreeAI.py,True,Olivia
-discourse_chatgpt.py,True,ChatGPT
-csv.py,False,https://github.com/python/cpython/blob/main/Lib/csv.py
-modbot_chatgpt.py,True,ChatGPT
+Filename,AI,Source,Comments
+binarySearchTreeAI.py,True,ChatGPT
+recyclingLabHG.py,False,Olivia
+calculatorHG.py,False,Olivia
+stringLabHG.py,False,Olivia
+groceryShoppingAI.py, True, ChatGPT
+roadTripAI.py, True, ChatGPT
+pythagoreanTheoremAI.py, True, ChatGPT
+carLabAI.py, True, ChatGPT
+calculateAgeHG.py, False, https://github.com/Python-World/python-mini-projects/blob/master/projects/Calculate_age/calculate.py
+billingSystemHG.py, False, https://github.com/Python-World/python-mini-projects/blob/master/projects/Billing_system/biling_system.py
