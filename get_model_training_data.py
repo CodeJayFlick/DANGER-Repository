@@ -28,7 +28,7 @@ import csv
 #commented out folders have incorrect formatting currently, so they will crash the program
 CODE_UPLOAD_FOLDERS = [
     "Anthony_code_uploads",
-    #"Cody Python Code Examples"
+    "Cody_code_uploads",
     "Kian_code_uploads",
     #"Olivia_code_uploads",
     "Tobias_code_uploads",
@@ -44,11 +44,14 @@ def _standard_label(input_str: str):
     return 'human'
 
 def _get_text_from_file(path: str):
-    try:
-        with open(path, 'r') as f:
-            return f.read()
-    except:
-        print(f"{path} could not be accessed. Most likely, the CSV did not have the exact path.") #TODO: should never happen. this happens when the filename in about_samples.csv is not an exact match of the actual filename
+    paths_to_try = [path, path + ".py"]
+    for attempted_path in paths_to_try:
+        try:
+            with open(attempted_path, 'r') as f:
+                return f.read()
+        except:
+            pass
+    print(f"{path} could not be accessed. Most likely, the CSV did not have the exact path.") #TODO: should never happen. this happens when the filename in about_samples.csv is not an exact match of the actual filename
 
 def _get_samples_from_folder(folderpath: str):
     labels = []
@@ -65,7 +68,9 @@ def _get_samples_from_folder(folderpath: str):
             code_samples.append(_get_text_from_file(
                 os.path.join(folderpath, row[0])))
             labels.append(_standard_label(row[1]))
-        print(row)
+        else:
+            print("Code was None, somehow.")
+        #print(row)
     return labels, code_samples    
 
 def get_dataframe():
