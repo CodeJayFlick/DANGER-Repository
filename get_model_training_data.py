@@ -37,13 +37,18 @@ CODE_UPLOAD_FOLDERS = [
 
 ABOUT_SAMPLES_PATH = "about_samples.csv"
 
-def _str_to_bool(input_str: str):
+def _standard_label(input_str: str):
     input_str = input_str.lower()
-    return input_str == "true"
+    if input_str in ["true", 'yes', 'ai']:
+        return 'ai'
+    return 'human'
 
 def _get_text_from_file(path: str):
-    with open(path, 'r') as f:
-        return f.read()
+    try:
+        with open(path, 'r') as f:
+            return f.read()
+    except:
+        print(f"{path} could not be accessed. Most likely, the CSV did not have the exact path.") #TODO: should never happen. this happens when the filename in about_samples.csv is not an exact match of the actual filename
 
 def _get_samples_from_folder(folderpath: str):
     labels = []
@@ -54,9 +59,12 @@ def _get_samples_from_folder(folderpath: str):
     for i, row in enumerate(csv_reader):
         if i == 0: # ignore first row:
             continue
-        code_samples.append(_get_text_from_file(
-            os.path.join(folderpath, row[0])))
-        labels.append(_str_to_bool(row[1]))
+        code = _get_text_from_file(
+            os.path.join(folderpath, row[0]))
+        if code is not None: #TODO: this code shouldn't be None. unclear why this is happening (probably misformatting?)
+            code_samples.append(_get_text_from_file(
+                os.path.join(folderpath, row[0])))
+            labels.append(_standard_label(row[1]))
         print(row)
     return labels, code_samples    
 
@@ -70,7 +78,5 @@ def get_dataframe():
         labels += new_labels
         code_samples += new_samples
 
-    df = pd.DataFrame({"labels" : labels, "code_samples" : code_samples})
+    df = pd.DataFrame({"label" : labels, "code_sample" : code_samples})
     return df
-
-    

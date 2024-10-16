@@ -1,4 +1,3 @@
-# sample source https://nzlul.medium.com/the-classification-of-text-messages-using-lstm-bi-lstm-and-gru-f79b207f90ad
 
 # Load, explore and plot data
 import numpy as np
@@ -22,52 +21,52 @@ from keras.callbacks import EarlyStopping # type: ignore # for some reason, this
 from keras.models import Sequential # type: ignore # for some reason, this import is not recognized but it does exist
 from keras.layers import LSTM, GRU, Dense, Embedding, Dropout, GlobalAveragePooling1D, Flatten, SpatialDropout1D, Bidirectional # type: ignore # for some reason, this import is not recognized but it does exist
 
+import get_model_training_data
 
-DO_DATA_FIGURE = False
-DO_DIST_COUNT = False
+WORD_CLOUD_TYPE = "ai" # or "human"
 
 # load data below
 
-df = pd.read_csv('https://raw.githubusercontent.com/kenneth-lee-ch/SMS-Spam-Classification/master/spam.csv', encoding='ISO-8859-1')
-# rename the columns
-df = df[['v1','v2']]
-df.rename(columns={'v1':'label', 'v2':'message'}, inplace=True)
+df = get_model_training_data.get_dataframe()
 print(df.head())
 print(df.describe())
 
 #------------
 
-if DO_DATA_FIGURE:
-    ham_msg_text = " ".join(list(df[df['label'] == 'ham']['message']))
-    print(ham_msg_text)
-    ham_msg_cloud = WordCloud(width =520, height =260, stopwords = STOPWORDS, max_font_size = 50, background_color = "black", colormap = 'Pastel1').generate(ham_msg_text)
-    plt.figure(figsize=(16,10))
-    plt.imshow(ham_msg_cloud, interpolation = 'bilinear')
-    plt.axis('off') # turn off axis
-    plt.show()
+print(df)
+
+# ham_msg_text = " ".join(list(df[df['label'] == WORD_CLOUD_TYPE]['code_sample']))
+# print(ham_msg_text)
+# ham_msg_cloud = WordCloud(width =520, height =260, stopwords = STOPWORDS, max_font_size = 50, background_color = "black", colormap = 'Pastel1').generate(ham_msg_text)
+# plt.figure(figsize=(16,10))
+# plt.imshow(ham_msg_cloud, interpolation = 'bilinear')
+# plt.axis('off') # turn off axis
+# plt.savefig(f"{WORD_CLOUD_TYPE}_data_figure.jpg")
+
+# plt.show()
+
 
 #------ 
 
-if DO_DIST_COUNT:
-    plt.figure(figsize=(8,6))
-    sns.countplot(df.label)
-    plt.title('The distribution of ham and spam messages')
-    plt.show()
+plt.figure(figsize=(8,6))
+sns.countplot(df.label)
+plt.title('The distribution of AI and human code')
+plt.show()
+
 
 #-----
 
+df['text_length'] = df['code_sample'].apply(len)
 
-df['text_length'] = df['message'].apply(len)
-
-df['msg_type'] = df['label'].map({'ham':0, 'spam':1})
+df['msg_type'] = df['label'].map({'human':0, 'ai':1})
 msg_label = df['msg_type'].values
 print(df.head())
 
-x_train, x_test, y_train, y_test = train_test_split(df['message'], msg_label, test_size=0.2, random_state=434)
+x_train, x_test, y_train, y_test = train_test_split(df['code_sample'], msg_label, test_size=0.2, random_state=434)
 
 
 # Defining pre-processing parameters
-max_len = 50
+max_len = 500000
 trunc_type = 'post'
 padding_type = 'post'
 oov_tok = '<OOV>' # out of vocabulary token
@@ -127,3 +126,4 @@ history = model.fit(training_padded,
                     verbose=2)
 
 model.evaluate(testing_padded, y_test)
+
