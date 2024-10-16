@@ -9,3 +9,9 @@ pythagoreanTheoremAI.py, True, ChatGPT
 carLabAI.py, True, ChatGPT
 calculateAgeHG.py, False, https://github.com/Python-World/python-mini-projects/blob/master/projects/Calculate_age/calculate.py
 billingSystemHG.py, False, https://github.com/Python-World/python-mini-projects/blob/master/projects/Billing_system/biling_system.py
+jumpSearchHG.py, False, https://github.com/shreydan/Python/blob/master/code/Algorithms/Searching/jump.py
+linearSearchHG.py, False, https://github.com/shreydan/Python/blob/master/code/Algorithms/Searching/linear.py
+ticketHG.py, False, https://github.com/shreydan/Python/blob/master/code/Class%20Based/Event%20Ticket%20Handler/handler.py
+ticTacToeHG.py, False, https://github.com/seakun/Python-Projects/blob/master/Tic-Tac-Toe/tictactoe.py
+dictionaryHG.py, False, https://github.com/hareeshreddi/Python-Scripts/blob/master/dict.py
+energyCalculatorAI.py, True, ChatGPT
