@@ -14,6 +14,7 @@ Usage:
 ```
 import get_model_training_data
 dataframe = get_model_training_data.get_dataframe()
+```
 ----
 
 History:
@@ -30,18 +31,20 @@ CODE_UPLOAD_FOLDERS = [
     "Anthony_code_uploads",
     "Cody_code_uploads",
     "Kian_code_uploads",
-    #"Olivia_code_uploads",
+    "Olivia_code_uploads",
     "Tobias_code_uploads",
     "Will_code_uploads",
 ]
 
+AI_LABEL = 'ai'
+HUMAN_LABEL = 'human'
 ABOUT_SAMPLES_PATH = "about_samples.csv"
 
 def _standard_label(input_str: str):
-    input_str = input_str.lower()
+    input_str = input_str.lower().strip()
     if input_str in ["true", 'yes', 'ai']:
-        return 'ai'
-    return 'human'
+        return AI_LABEL
+    return HUMAN_LABEL
 
 def _get_text_from_file(path: str):
     paths_to_try = [path, path + ".py"]
@@ -83,5 +86,8 @@ def get_dataframe():
         labels += new_labels
         code_samples += new_samples
 
+    num_ai_samples = len([label for label in labels if label == AI_LABEL])
+    num_human_samples = len([label for label in labels if label == HUMAN_LABEL])
+    print(f"Total: {num_ai_samples} AI-generated code pieces; {num_human_samples} Human-written code samples.")
     df = pd.DataFrame({"label" : labels, "code_sample" : code_samples})
     return df

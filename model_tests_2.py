@@ -1,4 +1,5 @@
 
+
 # Load, explore and plot data
 import numpy as np
 import pandas as pd
@@ -22,8 +23,12 @@ from keras.models import Sequential # type: ignore # for some reason, this impor
 from keras.layers import LSTM, GRU, Dense, Embedding, Dropout, GlobalAveragePooling1D, Flatten, SpatialDropout1D, Bidirectional # type: ignore # for some reason, this import is not recognized but it does exist
 
 import get_model_training_data
+import time
+
+start_time = time.time()
 
 WORD_CLOUD_TYPE = "ai" # or "human"
+DATA_TYPE_COUNT_GRAPH = False
 
 # load data below
 
@@ -48,10 +53,11 @@ print(df)
 
 #------ 
 
-plt.figure(figsize=(8,6))
-sns.countplot(df.label)
-plt.title('The distribution of AI and human code')
-plt.show()
+if DATA_TYPE_COUNT_GRAPH:
+    plt.figure(figsize=(8,6))
+    sns.countplot(df.label)
+    plt.title('The distribution of AI and human code')
+    plt.show()
 
 
 #-----
@@ -127,3 +133,5 @@ history = model.fit(training_padded,
 
 model.evaluate(testing_padded, y_test)
 
+
+print(f"Completed in {time.time() - start_time} seconds.")
