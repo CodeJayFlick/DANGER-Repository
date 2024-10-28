@@ -4,3 +4,11 @@ node_modules
 temp.py
 ignore_*
 pyrightconfig.json
+face_recognition/
+manim/
+requests/
+scrapy/
+superset/
+tensorflow/
+transformers/
+.vscode/settings.json
