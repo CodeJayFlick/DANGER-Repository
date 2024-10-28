@@ -1,0 +1,2 @@
+FOLDERS_TO_EXTRACT_FROM = []
+
