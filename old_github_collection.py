@@ -47,18 +47,18 @@ def run_command_with_confirm(command_to_run: str, cwd: str | None = None) -> str
     exit("Exiting script.")
 
 github_links : list[str] = [
-    "https://github.com/ManimCommunity/manim",
-    "https://github.com/TheAlgorithms/Python",
+    # "https://github.com/ManimCommunity/manim",
+    # "https://github.com/TheAlgorithms/Python",
     "https://github.com/tensorflow/tensorflow/",
-    "https://github.com/huggingface/transformers",
-    "https://github.com/langgenius/dify",
-    "https://github.com/apache/superset",
-    "https://github.com/xtekky/gpt4free",
-    "https://github.com/OpenInterpreter/open-interpreter",
-    "https://github.com/ageitgey/face_recognition",
-    "https://github.com/scrapy/scrapy",
-    "https://github.com/gpt-engineer-org/gpt-engineer",
-    "https://github.com/psf/requests",
+    # "https://github.com/huggingface/transformers",
+    # "https://github.com/langgenius/dify",
+    # "https://github.com/apache/superset",
+    # "https://github.com/xtekky/gpt4free",
+    # "https://github.com/OpenInterpreter/open-interpreter",
+    # "https://github.com/ageitgey/face_recognition",
+    # "https://github.com/scrapy/scrapy",
+    # "https://github.com/gpt-engineer-org/gpt-engineer",
+    # "https://github.com/psf/requests",
 ]
 
 MAIN_BRANCH_POSSIBLE_NAMES = ['main', 'master']
@@ -68,6 +68,8 @@ link_time_addition = f"/tree/HEAD@{'{' + date_to_access_string + '}'}"
 date_to_access_datetime = datetime.datetime.strptime(date_to_access_string, '%Y-%m-%d')
 
 for link in github_links:
+    if link[-1] == "/":
+        link = link[0:-1]
     creation_date, success = get_repo_creation_date(main_repo_link_to_api_request_link(link))
     if not success:
         continue
