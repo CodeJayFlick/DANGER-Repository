@@ -12,4 +12,4 @@ superset/
 tensorflow/
 transformers/
 .vscode/settings.json
-__pycache__/get_model_training_data.cpython-310.pyc
+__pycache__/
