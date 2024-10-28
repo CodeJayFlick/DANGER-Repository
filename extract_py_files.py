@@ -56,7 +56,7 @@ if not os.path.isdir(OUTPUT_FOLDER_NAME):
     os.mkdir(OUTPUT_FOLDER_NAME)
 
 CSV_PATH_NAME = "about_samples.csv"
-csv_file = open(os.path.join(OUTPUT_FOLDER_NAME, CSV_PATH_NAME), 'w')
+csv_file = open(os.path.join(OUTPUT_FOLDER_NAME, CSV_PATH_NAME), 'w', newline='')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(["Filename","AI","Source"])
 

@@ -34,6 +34,7 @@ CODE_UPLOAD_FOLDERS = [
     "Olivia_code_uploads",
     "Tobias_code_uploads",
     "Will_code_uploads",
+    "aggregate_data"
 ]
 
 AI_LABEL = 'ai'
@@ -65,6 +66,8 @@ def _get_samples_from_folder(folderpath: str):
     for i, row in enumerate(csv_reader):
         if i == 0: # ignore first row:
             continue
+        if i % 100 == 0:
+            print(f"Starting row {i}")
         code = _get_text_from_file(
             os.path.join(folderpath, row[0]))
         if code is not None: #TODO: this code shouldn't be None. unclear why this is happening (probably misformatting?)
