@@ -27,7 +27,9 @@ def collectOccurrences(code):
     return dict(collector.occurrences)
 
 # Read Input file.
-inputFile = "AI_binaryseachtree.py"
+import os
+os.chdir("Tobias_code_uploads")
+inputFile = "AI_binarysearchtree.py"
 with open(inputFile) as fileContent:
     code = fileContent.read()
 
@@ -36,6 +38,6 @@ occurrences = collectOccurrences(code)
 print("Occurrences:", occurrences)
 
 # Write Dict of Occurences to Output file.
-file = open("AI_binaryseachtree_Output.py", 'a')
+file = open("AI_binaryseachtree_Output.json", 'a')
 file.write(str(occurrences)) 
 file.close
