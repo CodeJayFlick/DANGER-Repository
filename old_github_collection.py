@@ -23,6 +23,9 @@ from subprocess import check_output
 from subprocess import CalledProcessError
 from typing import Tuple
 
+import clone_and_extract
+from clone_and_extract import date_to_access_string
+
 def get_repo_creation_date(repo_api_path: str) -> Tuple[datetime.datetime | None, bool]:
     repo_json_info = requests.get(repo_api_path).json()
     try:
@@ -46,54 +49,42 @@ def run_command_with_confirm(command_to_run: str, cwd: str | None = None) -> str
         return ''
     exit("Exiting script.")
 
-github_links : list[str] = [
-    # "https://github.com/ManimCommunity/manim",
-    # "https://github.com/TheAlgorithms/Python",
-    "https://github.com/tensorflow/tensorflow/",
-    # "https://github.com/huggingface/transformers",
-    # "https://github.com/langgenius/dify",
-    # "https://github.com/apache/superset",
-    # "https://github.com/xtekky/gpt4free",
-    # "https://github.com/OpenInterpreter/open-interpreter",
-    # "https://github.com/ageitgey/face_recognition",
-    # "https://github.com/scrapy/scrapy",
-    # "https://github.com/gpt-engineer-org/gpt-engineer",
-    # "https://github.com/psf/requests",
-]
 
 MAIN_BRANCH_POSSIBLE_NAMES = ['main', 'master']
 
-date_to_access_string = "2021-10-28" # one day before release date of GitHub Copilot, way before ChatGPT
 link_time_addition = f"/tree/HEAD@{'{' + date_to_access_string + '}'}" 
 date_to_access_datetime = datetime.datetime.strptime(date_to_access_string, '%Y-%m-%d')
 
-for link in github_links:
-    if link[-1] == "/":
-        link = link[0:-1]
-    creation_date, success = get_repo_creation_date(main_repo_link_to_api_request_link(link))
-    if not success:
-        continue
-    assert creation_date is not None
-    if creation_date > date_to_access_datetime:
-        continue
+def clone_repos():
+    for link in clone_and_extract.github_repos_to_clone:
+        if link in clone_and_extract.github_repos_already_cloned:
+            continue
+        if link[-1] == "/":
+            link = link[0:-1]
+        creation_date, success = get_repo_creation_date(main_repo_link_to_api_request_link(link))
+        if not success:
+            continue
+        assert creation_date is not None
+        if creation_date > date_to_access_datetime:
+            continue
 
-    link_at_date_to_access = link + link_time_addition
-    print(link_at_date_to_access)
+        link_at_date_to_access = link + link_time_addition
+        print(link_at_date_to_access)
 
-    clone_repo_command = f'git clone {link}'
-    cwd = link.split("/")[-1]
+        clone_repo_command = f'git clone {link}'
+        cwd = link.split("/")[-1]
 
-    print(run_command_with_confirm(clone_repo_command))
+        print(run_command_with_confirm(clone_repo_command))
 
-    rev_list_time_arg = run_command_with_confirm(f"git rev-parse --until={date_to_access_string}", cwd=cwd)
+        rev_list_time_arg = run_command_with_confirm(f"git rev-parse --until={date_to_access_string}", cwd=cwd)
 
-    commit_to_move_to = None
-    for name in MAIN_BRANCH_POSSIBLE_NAMES:
-        try:
-            commit_to_move_to = run_command_with_confirm(f"git rev-list -1 {rev_list_time_arg} {name}", cwd=cwd)
-            break
-        except CalledProcessError:
-            print(f"Command failed with {name} as the main/master branch. This is OK if it's just named the other one")
-    
-    reset_repo_to_date = f"git reset --hard {commit_to_move_to}"
-    print(run_command_with_confirm(reset_repo_to_date, cwd=cwd))
+        commit_to_move_to = None
+        for name in MAIN_BRANCH_POSSIBLE_NAMES:
+            try:
+                commit_to_move_to = run_command_with_confirm(f"git rev-list -1 {rev_list_time_arg} {name}", cwd=cwd)
+                break
+            except CalledProcessError:
+                print(f"Command failed with {name} as the main/master branch. This is OK if it's just named the other one")
+        
+        reset_repo_to_date = f"git reset --hard {commit_to_move_to}"
+        print(run_command_with_confirm(reset_repo_to_date, cwd=cwd))

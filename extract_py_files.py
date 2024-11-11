@@ -21,6 +21,8 @@ import os
 import csv
 import shutil
 
+import clone_and_extract
+
 def get_all_filepaths(directory: str) -> list[str]:
     result = []
     for f in os.listdir(directory):
@@ -31,49 +33,35 @@ def get_all_filepaths(directory: str) -> list[str]:
             result.append(fullpath)
     return result
 
-GITHUB_REPOS : list[str] = [
-    "https://github.com/ManimCommunity/manim",
-    "https://github.com/TheAlgorithms/Python",
-    "https://github.com/tensorflow/tensorflow",
-    "https://github.com/huggingface/transformers",
-    "https://github.com/langgenius/dify",
-    "https://github.com/apache/superset",
-    "https://github.com/xtekky/gpt4free",
-    "https://github.com/OpenInterpreter/open-interpreter",
-    "https://github.com/ageitgey/face_recognition",
-    "https://github.com/scrapy/scrapy",
-    "https://github.com/gpt-engineer-org/gpt-engineer",
-    "https://github.com/psf/requests",
-]
-OUTPUT_FOLDER_NAME = "aggregate_data"
+def extract_files():
+    if os.path.isdir(clone_and_extract.output_folder_name) and len(os.listdir(clone_and_extract.output_folder_name)) != 0:
+        exit(f"{clone_and_extract.output_folder_name} already exists and has items in it! Exiting script.")
 
+    if not os.path.isdir(clone_and_extract.output_folder_name):
+        os.mkdir(clone_and_extract.output_folder_name)
 
+    csv_file = open(os.path.join(clone_and_extract.output_folder_name, clone_and_extract.CSV_PATH_NAME), 'w', newline='')
+    csv_writer = csv.writer(csv_file)
+    csv_writer.writerow(["Filename","AI","Source"])
 
-if os.path.isdir(OUTPUT_FOLDER_NAME) and len(os.listdir(OUTPUT_FOLDER_NAME)) != 0:
-    exit(f"{OUTPUT_FOLDER_NAME} already exists and has items in it! Exiting script.")
-
-if not os.path.isdir(OUTPUT_FOLDER_NAME):
-    os.mkdir(OUTPUT_FOLDER_NAME)
-
-CSV_PATH_NAME = "about_samples.csv"
-csv_file = open(os.path.join(OUTPUT_FOLDER_NAME, CSV_PATH_NAME), 'w', newline='')
-csv_writer = csv.writer(csv_file)
-csv_writer.writerow(["Filename","AI","Source"])
-
-count = 0
-
-for repo in GITHUB_REPOS:
-    if repo[-1] == "/":
-        repo = repo[0:-1]
-    folder_name = repo.split("/")[-1]
-    if not os.path.isdir(folder_name):
-        continue
-    all_filepaths = get_all_filepaths(folder_name)
-    for path in all_filepaths:
-        if len(path) < 3 or path[-3:] != '.py':
+    count = 0
+    for repo in clone_and_extract.github_repos_to_clone:
+        if repo in clone_and_extract.failed_clones:
             continue
-        new_filename = path.replace("/", '__').replace("\\", "__")[:-3] + f"_{count}.py"
-        new_full_filepath = os.path.join(OUTPUT_FOLDER_NAME, new_filename)
-        shutil.copy(path, new_full_filepath)
-        csv_writer.writerow([new_filename, False, repo])
-        count += 1
+        if repo[-1] == "/":
+            repo = repo[0:-1]
+        folder_name = repo.split("/")[-1]
+        if not os.path.isdir(folder_name):
+            continue
+        all_filepaths = get_all_filepaths(folder_name)
+        for path in all_filepaths:
+            if len(path) < len(clone_and_extract.extension) or path[-(len(clone_and_extract.extension)):] != clone_and_extract.extension:
+                continue
+            new_filename = path.replace("/", '__').replace("\\", "__")[:-3] + f"_{count}{clone_and_extract.extension}"
+            new_full_filepath = os.path.join(clone_and_extract.output_folder_name, new_filename)
+            try:
+                shutil.copy(path, new_full_filepath)
+            except FileNotFoundError:
+                print(f"{path} could not be copied. This is likely because {len(path)=}")
+            csv_writer.writerow([new_filename, False, repo])
+            count += 1
