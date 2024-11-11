@@ -14,7 +14,6 @@ Version: 1.0
 Date: 10-28-2024
 Author(s): Anthony S
 Notes: This script was used to extract the files on 10-28-2024
-
 """
 
 import os
