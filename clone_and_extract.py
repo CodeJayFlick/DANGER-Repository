@@ -67,7 +67,7 @@ failed_clones : list[str] = [
     "https://github.com/IrisShaders/Iris", # main was not named either main nor master. this script failed as a result
     "https://github.com/IzzelAliz/Arclight", # main was not named either main nor master. this script failed as a result
     "https://github.com/GrimAnticheat/Grim", # same issue
-        "https://github.com/EssentialsX/Essentials", # failed for usual reason
+    "https://github.com/EssentialsX/Essentials", # failed for usual reason
 
 
 ]
