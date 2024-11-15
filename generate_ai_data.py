@@ -9,8 +9,6 @@ output_folder = "py_from_java_attempt_4"
 CSV_PATH_NAME = "about_samples.csv"
 model_name = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
 
-
-
 model = GPT4All(model_name, n_ctx=10000, device=None if len(GPT4All.list_gpus()) == 0 else "gpu") # downloads / loads a 4.66GB LLM
 max_tokens = 3000
 
