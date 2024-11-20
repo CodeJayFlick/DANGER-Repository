@@ -2,13 +2,14 @@ import time
 import csv
 import os
 from gpt4all import GPT4All
-model = GPT4All("Meta-Llama-3-8B-Instruct.Q4_0.gguf") # downloads / loads a 4.66GB LLM
 
 
 folder_to_translate_from = "aggregate_data_java"
-output_folder = "py_from_java_attempt_4"
+output_folder = "py_from_java_attempt_5"
 CSV_PATH_NAME = "about_samples.csv"
+model_name = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
 
+model = GPT4All(model_name, n_ctx=10000, device="cpu") # downloads / loads a 4.66GB LLM
 max_tokens = 3000
 
 if os.path.isdir(output_folder) and len(os.listdir(output_folder)) != 0:
@@ -33,7 +34,7 @@ def write_file_with_prompt(filename_to_write: str, prompt: str, do_print=True):
     output_file.close()
 
 
-csv_file = open(os.path.join(output_folder, CSV_PATH_NAME), 'w')
+csv_file = open(os.path.join(output_folder, CSV_PATH_NAME), 'w', newline='')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(["Filename", "AI", "Source"])
 
@@ -45,9 +46,10 @@ for filename in os.listdir(folder_to_translate_from):
     with open(os.path.join(folder_to_translate_from, filename), 'r') as prompt_file:
         prompt = f"The following is a file of code. Translate it to Python.\n\n"
         prompt += prompt_file.read()
+        prompt += "\n Once again, translate the above code to Python. Write Python, and only Python."
         new_code_filename = f"{os.path.join(output_folder, filename + f'_{count}.py')}"
         write_file_with_prompt(filename_to_write=new_code_filename, prompt=prompt)
-        csv_writer.writerow([new_code_filename, True, "Meta-Llama-3-8B-Instruct.Q4_0.gguf"])
+        csv_writer.writerow([new_code_filename, True, model_name])
     count += 1
 
 # end_time = time.time()

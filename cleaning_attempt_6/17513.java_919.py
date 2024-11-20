@@ -1,0 +1,40 @@
+BUILTIN_FUNCTIONS = {
+    "CONST": {"function_name": "CONST", "class_name": "UDTFConst"},
+    "E": {"function_name": "E", "class_name": "UDTFConstE"},
+    "PI": {"function_name": "PI", "class_name": "UDTFConstPi"},
+    "SIN": {"function_name": "SIN", "class_name": "UDTFSin"},
+    "COS": {"function_name": "COS", "class_name": "UDTFCos"},
+    "TAN": {"function_name": "TAN", "class_name": "UDFTan"},
+    "ASIN": {"function_name": "ASIN", "class_name": "UDTFAsin"},
+    "ACOS": {"function_name": "ACOS", "class_name": "UDFAcos"},
+    "ATAN": {"function_name": "ATAN", "class_name": "UDTFAtan"},
+    "SINH": {"function_name": "SINH", "class_name": "UDTFSinh"},
+    "COSH": {"function_name": "COSH", "class_name": "UDTCosh"},
+    "TANH": {"function_name": "TANH", "class_name": "UDFTanh"},
+    "DEGREES": {"function_name": "DEGREES", "class_name": "UDTFDegrees"},
+    "RADIANS": {"function_name": "RADIANS", "class_name": "UDTFRadians"},
+    "ABS": {"function_name": "ABS", "class_name": "UDTFAbs"},
+    "SIGN": {"function_name": "SIGN", "class_name": "UDTFSign"},
+    "CEIL": {"function_name": "CEIL", "class_name": "UDTFCeil"},
+    "FLOOR": {"function_name": "FLOOR", "class_name": "UDTFFloor"},
+    "ROUND": {"function_name": "ROUND", "class_name": "UDTFRound"},
+    "EXP": {"function_name": "EXP", "class_name": "UDTFExp"},
+    "LN": {"function_name": "LN", "class_name": "UDTFLog"},
+    "LOG10": {"function_name": "LOG10", "class_name": "UDTFLog10"},
+    "SQRT": {"function_name": "SQRT", "class_name": "UDTFSqrt"},
+    "STRING_CONTAINS": {"function_name": "STRING_CONTAINS", "class_name": "UDTFContains"},
+    "STRING_MATCHES": {"function_name": "STRING_MATCHES", "class_name": "UDTFMatches"},
+    "DIFFERENCE": {"function_name": "DIFFERENCE", "class_name": "UDTFCCommonValueDifference"},
+    "NON_NEGATIVE_DIFFERENCE": {
+        "function_name": "NON_NEGATIVE_DIFFERENCE",
+        "class_name": "UDTFNonNegativeValueDifference"
+    },
+    "TIME_DIFFERENCE": {"function_name": "TIME_DIFFERENCE", "class_name": "UDTFTimeDifference"},
+    "DERIVATIVE": {"function_name": "DERIVATIVE", "class_name": "UDTFCCommonDerivative"},
+    "NON_NEGATIVE_DERIVATIVE": {
+        "function_name": "NON_NEGATIVE_DERIVATIVE",
+        "class_name": "UDTFNonNegativeDerivative"
+    },
+    "TOP_K": {"function_name": "TOP_K", "class_name": "UDTFTopK"},
+    "BOTTOM_K": {"function_name": "BOTTOM_K", "class_name": "UDTFFBottomK"}
+}

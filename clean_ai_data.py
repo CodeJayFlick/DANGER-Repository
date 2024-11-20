@@ -1,0 +1,78 @@
+import os
+import csv
+
+input_folder = "py_from_java_lambda_attempt_1"
+output_folder = "cleaning_attempt_6"
+ABOUT_SAMPLES_PATH = "about_samples.csv".lower()
+
+def end_of_path(input_path: str):
+    return input_path[max(input_path.rfind("/"), input_path.rfind("\\")) + 1:]
+
+def parse_with_start_line_and_end_line(script: str, start_line: str, end_line: str) -> str | None:
+    """
+    Given the parameters, finds the first instance of start_line followed by end_line (each on their own lines).
+    Then, returns the text in-between.
+    This check will not be case-sensitive.
+
+    If there are no such instances, returns None.
+    """
+    lines = script.split("\n")
+    result = ''
+    started_script = False
+    for line in lines:
+        if not started_script and line.lower() != start_line.lower():
+            pass
+        elif not started_script and line.lower() == start_line.lower():
+            started_script = True
+        elif line.lower() != end_line.lower():
+            result += line + "\n"
+        else:
+            return result
+    return None
+
+def parse_script(script: str) -> str | None:
+    possible_result = parse_with_start_line_and_end_line(script, start_line="```Python", end_line="```")
+    if possible_result:
+        return possible_result
+    possible_result = parse_with_start_line_and_end_line(script, start_line="```", end_line="```")
+    if possible_result:
+        return possible_result
+    return None
+
+
+if os.path.isdir(output_folder) and len(os.listdir(output_folder)) != 0:
+    exit(f"{output_folder} exists and is not empty. Exiting script.")
+
+if not os.path.isdir(output_folder):
+    os.mkdir(output_folder)
+
+old_about_samples_file = open(os.path.join(input_folder, ABOUT_SAMPLES_PATH), 'r')
+old_about_samples_csv = csv.reader(old_about_samples_file)
+
+new_about_samples_file = open(os.path.join(output_folder, ABOUT_SAMPLES_PATH), 'w', newline='')
+new_about_samples_csv = csv.writer(new_about_samples_file)
+new_about_samples_csv.writerow(["Filename", "AI", "Comments"])
+
+old_about_samples_csv.__next__() # skip first row
+for row in old_about_samples_csv:
+    filename = end_of_path(row[0])
+    is_ai = row[1]
+    source = row[2]
+
+    if filename.lower() == ABOUT_SAMPLES_PATH: # should never happen but just in case
+        continue
+    # print(f"Starting {filename}.")
+
+    old_file = open(os.path.join(input_folder, filename) , 'r')
+    new_file = open(os.path.join(output_folder, filename), 'w')
+    try:
+        old_file_text = old_file.read()
+        parsed_script = parse_script(old_file_text)
+        if parsed_script:
+            new_file.write(parsed_script)
+            new_about_samples_csv.writerow([filename, is_ai, source])
+            new_about_samples_file.flush()
+        else:
+            print(f"Script with filename {filename} could not be parsed. Skipping")
+    except:
+        print(f"Ran into error when converting {filename}. Skipping.")

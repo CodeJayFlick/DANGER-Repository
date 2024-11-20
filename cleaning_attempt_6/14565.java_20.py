@@ -1,0 +1,13 @@
+import unittest
+from io import FileNotFoundError
+
+class TestApp(unittest.TestCase):
+
+    def test_should_execute_without_exception(self):
+        try:
+            App.main()
+        except Exception as e:
+            self.fail(f"Exception occurred: {e}")
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,0 +1,49 @@
+Here is the equivalent Python code:
+
+```
+class PixelType:
+    UNUSED_TYPE = 'UNUSED_TYPE'
+    ERROR = 'ERROR'
+
+    UNINIT_UNUSED = 'UNINIT_UNUSED'
+    UNINIT_DATA = 'UNINIT_DATA'
+
+    EXTERNAL = 'EXTERNAL'
+
+    UNDEF_DATA0 = 'UNDEF_DATA0'
+    UNDEF_DATA1 = 'UNDEF_DATA1'
+    UNDEF_DATA2 = 'UNDEF_DATA2'
+    UNDEF_DATA3 = 'UNDEF_DATA3'
+    UNDEF_DATA4 = 'UNDEF_DATA4'
+    UNDEF_DATA5 = 'UNDEF_DATA5'
+    UNDEF_DATA6 = 'UNDEF_DATA6'
+    UNDEF_DATA7 = 'UNDEF_DATA7'
+
+    DEF_DATA0 = 'DEF_DATA0'
+    DEF_DATA1 = 'DEF_DATA1'
+    DEF_DATA2 = 'DEF_DATA2'
+    DEF_DATA3 = 'DEF_DATA3'
+    DEF_DATA4 = 'DEF_DATA4'
+    DEF_DATA5 = 'DEF_DATA5'
+    DEF_DATA6 = 'DEF_DATA6'
+    DEF_DATA7 = 'DEF_DATA7'
+
+    CODE_MEMORY = 'CODE_MEMORY'
+    CODE_FLOW = 'CODE_Flow'
+    CODE_SPECIAL = 'CODE_SPECIAL'
+    CODE_NORMAL = 'CODE_NORMAL'
+
+    FUN_CODE_MEMORY = 'FUN_CODE_MEMORY'
+    FUN_CODE_FLOW = 'FUN_CODE_FLOW'
+    FUN_CODE_SPECIAL = 'FUN_CODE_SPECIAL'
+    FUN_CODE_NORMAL = 'FUN_CODE_NORMAL'
+
+    SELECTED = 'SELECTED'
+    HIGHLIGHTED = 'HIGHLIGHTED'
+    SEL_AND_HIGH = 'SEL_AND_HIGH'
+
+    def type(self):
+        return self.ordinal()
+```
+
+Note that Python does not have an equivalent to Java's `enum` keyword, so we use a class with named constants instead. The `type()` method is also different in Python - it would typically be defined as a staticmethod or a property rather than an instance method.

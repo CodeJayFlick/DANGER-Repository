@@ -1,0 +1,2 @@
+class DbgModelTargetSessionAttributesMachine:
+    pass

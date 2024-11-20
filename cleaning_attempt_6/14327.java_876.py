@@ -1,0 +1,35 @@
+import unittest
+
+class GameLoopTest(unittest.TestCase):
+    def setUp(self):
+        self.game_loop = GameLoop()
+
+    def tearDown(self):
+        self.game_loop = None
+
+    @unittest.skip("Not implemented")
+    def test_run(self):
+        self.game_loop.run()
+        self.assertEqual(GameStatus.RUNNING, self.game_loop.status)
+
+    @unittest.skip("Not implemented")
+    def test_stop(self):
+        self.game_loop.stop()
+        self.assertEqual(GameStatus.STOPPED, self.game_loop.status)
+
+    @unittest.skip("Not implemented")
+    def test_is_game_running(self):
+        self.assertFalse(self.game_loop.is_game_running())
+
+class GameLoop:
+    def run(self):
+        pass
+
+    def stop(self):
+        pass
+
+    def is_game_running(self):
+        return False
+
+if __name__ == '__main__':
+    unittest.main()
