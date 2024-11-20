@@ -1,0 +1,29 @@
+Here is the translation of the given Java code into equivalent Python:
+
+```Python
+# Licensed under Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import unittest
+
+class InVmModelForDbgmodelSessionActivationTest(unittest.TestCase):
+    def setUp(self):
+        pass  # Don't know how to make multiple sessions
+
+    def test_model_host(self):
+        self.assertEqual(InVmDbgmodelModelHost().__str__(), "InVmDbgmodelModelHost")
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+Please note that Python does not have direct equivalent of Java's `@Ignore` annotation. In the given code, I've used a comment to indicate that this test is ignored due to lack of knowledge on how to make multiple sessions in Python.
