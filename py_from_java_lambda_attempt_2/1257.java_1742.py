@@ -1,0 +1,31 @@
+Here is the equivalent Python code:
+
+```Python
+class InVmModelForDbgmodelX64RegistersTest:
+    REG_VALSX = {
+        "rax": bytearray(b"0123456789abcdef"),
+        "rdx": bytearray(b"fedcba9876543210")
+    }
+
+    def model_host(self):
+        return InVmDbgmodelModelHost()
+
+    def is_register_bank_also_container(self):
+        return False
+
+    def get_expected_register_bank_path(self, thread_path):
+        from ghidra.util.path import extend
+        return extend(thread_path, ["Registers", "User"])
+
+    def get_register_writes(self):
+        return self.REG_VALSX.copy()
+
+    @staticmethod
+    def test_registers_have_expected_sizes():
+        pass  # This method is ignored in the original code
+
+class InVmDbgmodelModelHost:
+    pass
+```
+
+Please note that Python does not have direct equivalent of Java's `Map.ofEntries` and `@Override`, so I had to use a dictionary comprehension for creating the REG_VALSX map. Also, since there are no specific instructions on how to handle the test_registers_have_expected_sizes method in Python, it is simply ignored here by passing.

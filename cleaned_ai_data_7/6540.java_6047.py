@@ -1,0 +1,24 @@
+import unittest
+from ghidra_data_types import *
+
+class ConflictHandlerTest(unittest.TestCase):
+
+    def setUp(self):
+        self.program = create_default_program("test_name", ProgramBuilder._TOY)
+        self.data_mgr = self.program.get_data_type_manager()
+        start_transaction()
+
+    def tearDown(self):
+        end_transaction()
+        release(self)
+
+    def test_add_empty_struct_resolve_to_populated_struct1(self):
+        assertStruct(create_populated(self.data_mgr), create_stub(self.data_mgr, 0), ConflictResult.USE_EXISTING)
+
+    def test_add_empty_struct_resolve_to_populated_struct2(self):
+        assertStruct(None, None, ConflictResult.USE_EXISTING)
+
+    # ... and so on for the rest of your tests
+
+if __name__ == '__main__':
+    unittest.main()

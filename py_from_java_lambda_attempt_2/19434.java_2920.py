@@ -1,0 +1,37 @@
+Here is the translation of the given Java code into Python:
+
+```Python
+class PreScriptLoadEvent:
+    def __init__(self, scripts):
+        self.scripts = scripts
+
+    @property
+    def handlers(self):
+        return _handlers
+
+
+_handlers = HandlerList()
+
+
+def get_handler_list():
+    return _handlers
+
+
+def get_scripts(self):
+    return self.scripts
+
+
+class Config:
+    pass
+
+
+from typing import List
+
+class HandlerList:
+    pass
+
+
+import java.util.List  # This line is not necessary in Python
+```
+
+Please note that this translation does not include the license information and copyright notice, as these are specific to Java.

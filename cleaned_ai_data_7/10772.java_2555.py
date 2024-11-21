@@ -1,0 +1,2 @@
+class VisualGraphSatelliteActionContext(VisualGraphActionContext):
+    pass

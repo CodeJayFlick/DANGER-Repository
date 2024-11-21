@@ -34,7 +34,8 @@ CODE_UPLOAD_FOLDERS = [
     "Olivia_code_uploads",
     "Tobias_code_uploads",
     "Will_code_uploads",
-    "aggregate_data"
+    "aggregate_data",
+    "cleaning_attempt_6",
 ]
 
 AI_LABEL = 'ai'

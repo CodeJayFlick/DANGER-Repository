@@ -1,0 +1,2 @@
+class TraceLocalVariableSymbolView:
+    pass

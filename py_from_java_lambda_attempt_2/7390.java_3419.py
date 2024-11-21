@@ -1,0 +1,27 @@
+Here is the equivalent Python code:
+
+```Python
+class CrushedPNGConstants:
+    SIGNATURE_BYTES = bytes([89, 80, 70, 78, 13, 10, 26, 10])
+    INSERTED_IOS_CHUNK = b'CGBI'
+    IHDR_CHUNK = b'IHDR'
+    IDAT_CHUNK = b'IDAT'
+    IEND_CHUNK = b'IEND'
+
+    STARTING_ROW = [0, 0, 4, 0, 2, 1]
+    STARTING_COL = [0, 4, 0, 2, 1, 0]
+    ROW_INCREMENT = [8, 8, 8, 4, 4, 2, 2]
+    COL_INCREMENT = [8, 8, 4, 4, 2, 2, 1]
+
+    IHDR_CHUNK_DATA_SIZE = 13
+    GENERIC CHUNK SIZE = 12
+    INITIAL_REPACK_SIZE = 65536
+
+    IEND_STRING = 'IEND'
+    IHDR_STRING = 'IHDR'
+
+    ADAM7_INTERLACE = 1
+    INTERLACE_NONE = 0
+```
+
+Note that Python uses `bytes` for byte arrays and does not have a direct equivalent to Java's `final static`. The class is defined using the `class` keyword, and its attributes are accessed as if they were instance variables.

@@ -1,0 +1,73 @@
+Here is the translation of the Java code into Python:
+
+```Python
+class NListConstants:
+    MASK_N_STAB = 0xe0
+    MASK_N_PEXT = 0x10
+    MASK_N_TYPE = 0x0e
+    MASK_N_EXT = 0x01
+
+    TYPE_N_UNDF = 0x0
+    TYPE_N_ABS = 0x2
+    TYPE_N_INDR = 0xa
+    TYPE_N_PBUD = 0xc
+    TYPE_N_SECT = 0xe
+
+    REFERENCE_TYPE = 7
+    REFERENCE_FLAG_UNDEFINED_NON_LAZY = 0
+    REFERENCE_FLAG_UNDEFINED.LAZY = 1
+    REFERENCE_FLAG_DEFINED = 2
+    REFERENCE_FLAG_PRIVATE_DEFINED = 3
+    REFERENCE_FLAG_PRIVATE_UNDEFINED_NON_LAZY = 4
+    REFERENCE_FLAG_PRIVATE_UNDEFINED_LAZY = 5
+
+    REFERENCED_DYNAMICALLY = 16
+
+    NO_SECT = 0
+
+    DESC_N_NO_DEAD_STRIP = 20
+    DESC_N_DESC_DISCARDED = 20
+    DESC_N_WEAK_REF = 40
+    DESC_N_WEAK_DEF = 80
+    DESC_N_REF_TO_WEAK = 80
+    DESC_N_ARM_THUMB_DEF = 8
+
+    DEBUG_N_GSYM = 0x20
+    DEBUG_N_FNAME = 0x22
+    DEBUG_N_FUN = 0x24
+    DEBUG_N_STSYM = 0x26
+    DEBUG_N_LCSYM = 0x28
+    DEBUG_N_BNSYM = 0x2e
+    DEBUG_N_OPT = 0x3c
+    DEBUG_N_RSYM = 0x40
+    DEBUG_N_SLINE = 0x44
+    DEBUG_N_ENSYM = 0x4e
+    DEBUG_N_SSYM = 0x60
+    DEBUG_N_SO = 0x64
+    DEBUG_N_OSO = 0x66
+    DEBUG_N_LSYM = 0x80
+    DEBUG_N_BINCL = 0x82
+    DEBUG_N_SOL = 0x84
+    DEBUG_N_PARAMS = 0x86
+    DEBUG_N_VERSION = 0x88
+    DEBUG_N_OLEVEL = 0x8a
+    DEBUG_N_PSYM = 0xa0
+    DEBUG_N_EINCL = 0xa2
+    DEBUG_N_ENTRY = 0xa4
+    DEBUG_N_LBRAC = 0xc0
+    DEBUG_N_EXCL = 0xc2
+    DEBUG_N_RBRAC = 0xe0
+    DEBUG_N_BCOMM = 0xe2
+    DEBUG_N_ECOMM = 0xe4
+    DEBUG_N_ECML = 0xe8
+    DEBUG_N_LENG = 0xfe
+
+    SELF_LIBRARY_ORDINAL = 0x00
+    MAX_LIBRARY_ORDINAL = 0xfd
+    DYNAMIC_LOOKUP_ORDINAL = 0xfe
+    EXECUTABLE_ORDINAL = 0xff
+
+
+# Example usage:
+nlist_constants = NListConstants()
+print(nlist_constants.TYPE_N_ABS)

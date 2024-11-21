@@ -1,0 +1,55 @@
+class PanelManager:
+    def __init__(self):
+        pass
+
+    def can_finish(self) -> bool:
+        """Return true if the 'finish' step can be completed."""
+        return True  # Replace with your implementation
+
+    def has_next_panel(self) -> bool:
+        """Return true if there is a 'next' panel."""
+        return False  # Replace with your implementation
+
+    def has_previous_panel(self) -> bool:
+        """Return true if there is a 'previous' panel."""
+        return False  # Replace with your implementation
+
+    def get_next_panel(self) -> object:  # WizardPanel
+        """Get the next panel in the process."""
+        raise NotImplementedError("Not implemented")
+
+    def get_initial_panel(self) -> object:  # WizardPanel
+        """Get the first panel in the process."""
+        raise NotImplementedError("Not implemented")
+
+    def get_previous_panel(self) -> object:  # WizardPanel
+        """Get the previous panel in the process."""
+        raise NotImplementedError("Not implemented")
+
+    def get_status_message(self) -> str:
+        """Get the status message for the current panel."""
+        return ""  # Replace with your implementation
+
+    def finish(self):
+        """Method called when the user wants to finish the process."""
+        pass  # Replace with your implementation
+
+    def cancel(self):
+        """Method called when the user wants to cancel the process."""
+        pass  # Replace with your implementation
+
+    def initialize(self):
+        """Set up the panel process. This may also be called to clear the state of an existing panel, such as when the overall wizard is finished."""
+        pass  # Replace with your implementation
+
+    def get_panel_size(self) -> tuple:
+        """Get the size of the panels."""
+        return (0, 0)  # Replace with your implementation
+
+    def set_wizard_manager(self, wm):
+        """Set the wizard manager for this panel manager."""
+        self.wm = wm
+
+    def get_wizard_manager(self) -> object:  # WizardManager
+        """Get the wizard manager."""
+        return self.wm

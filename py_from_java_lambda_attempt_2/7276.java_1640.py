@@ -1,0 +1,132 @@
+Here is the translation of the given Java code into equivalent Python:
+
+```Python
+class Ext4Constants:
+    SUPER_BLOCK_START = 0x400
+    SUPER_BLOCK_MAGIC = 0xEF53
+    
+    COMPAT_DIR_PREALLOC = 1
+    COMPAT_IMAGIC_INODES = 2
+    COMPAT_HAS_JOURNAL = 4
+    COMPAT_EXT_ATTR = 8
+    COMPAT_RESIZE_INODE = 10
+    COMPAT_DIR_INDEX = 20
+    COMPAT_LAZY_BG = 40
+    COMPAT_EXCLUDE_INODE = 80
+    COMPAT_EXCLUDE_BITMAP = 100
+    COMPAT_SPARSE_SUPER2 = 200
+    
+    INCOMPAT_COMPRESSION = 1
+    INCOMPAT_FILETYPE = 2
+    INCOMPAT_RECOVER = 4
+    INCOMPAT_JOURNAL_DEV = 8
+    INCOMPAT_META_BG = 10
+    INCOMPAT_EXTENTS = 40
+    INCOMPAT_64BIT = 80
+    INCOMPAT_MMP = 100
+    INCOMPAT_FLEX_BG = 200
+    INCOMPAT_EA_INODE = 400
+    INCOMPAT_DIRDATA = 1000
+    INCOMPAT_CSUM_SEED = 2000
+    INCOMPAT_LARGEDIR = 4000
+    INCOMPAT_INLINE_DATA = 8000
+    INCOMPAT_ENCRYPT = 10000
+    
+    RO_COMPAT_SPARSE_SUPER = 1
+    RO_COMPAT_LARGE_FILE = 2
+    RO_COMPAT_BTREE_DIR = 4
+    RO_COMPAT_HUGE_FILE = 8
+    RO_COMPAT_GDT_CSUM = 10
+    RO_COMPAT_DIR_NLINK = 20
+    RO_COMPAT_EXTRA_ISIZE = 40
+    RO_COMPAT_HAS_SNAPSHOT = 80
+    RO_COMPAT_QUOTA = 100
+    RO_COMPAT_BIGALLOC = 200
+    RO_COMPAT_METADATA_CSUM = 400
+    RO_COMPAT_REPLICA = 800
+    RO_COMPAT_READONLY = 1000
+    
+    S_IXOTH = 1
+    S_IWOTH = 2
+    S_IRTH = 4
+    S_IXGRP = 8
+    S_IWGRP = 10
+    S_IRGRP = 20
+    S_IXUSR = 40
+    S_IWUSR = 80
+    S_IRUSR = 100
+    S_ISVTX = 200
+    S_ISGID = 400
+    S_ISUID = 800
+    
+    S_IFIFO = 0x1000
+    S_IFCHR = 0x2000
+    S_IFDIR = 0x4000
+    S_IFBLK = 0x6000
+    S_IFREG = 0x8000
+    S_IFLNK = 0xA000
+    S_IFSOCK = 0xC000
+    
+    I_MODE_MASK = 0xF000
+    
+    EXT4_SECRM_FL = 1
+    EXT4_UNRM_FL = 2
+    EXT4_COMPR_FL = 4
+    EXT4_SYNC_FL = 8
+    EXT4_IMMUTABLE_FL = 10
+    EXT4_APPEND_FL = 20
+    EXT4_NODUMP_FL = 40
+    EXT4_NOATIME_FL = 80
+    EXT4_DIRTY_FL = 100
+    EXT4_COMPRBLK_FL = 200
+    EXT4_NOCOMPR_FL = 400
+    EXT4_ENCRYPT_FL = 800
+    
+    FILE_TYPE_UNKNOWN = 0x0
+    FILE_TYPE_REGULAR_FILE = 1
+    FILE_TYPE_DIRECTORY = 2
+    FILE_TYPE_CHARACTER_DEVICE_FILE = 3
+    FILE_TYPE_BLOCK_DEVICE_FILE = 4
+    FILE_TYPE_FIFO = 5
+    FILE_TYPE_SOCKET = 6
+    FILE_TYPE_SYMBOLIC_LINK = 7
+    
+    EXT4_FT_UNKNOWN = 0x0
+    EXT4_FT_REG_FILE = 1
+    EXT4_FT_DIR = 2
+    EXT4_FT_CHRDEV = 3
+    EXT4_FT_BLKDEV = 4
+    EXT4_FT_FIFO = 5
+    EXT4_FT_SOCK = 6
+    EXT4_FT_SYMLINK = 7
+    
+    EXT4_FT_MAX = 8
+    
+    EXT4_FT_DIR_CSUM = (byte)0xDE
+    
+    INODE_INDEX_NULL = 0
+    INODE_INDEX_BADBLOCKS = 1
+    INODE_INDEX_ROOTDIR = 2
+    INODE_INDEX_USERQUOTA = 3
+    INODE_INDEX_GROUPQUOTA = 4
+    INODE_INDEX_BOOTLOADER = 5
+    INODE_INDEX_UNDELETEDIR = 6
+    INODE_INDEX_RESERVED_GROUP_DESCRIPTORS = 7
+    INODE_INDEX_JOURNALINODE = 8
+    INODE_INDEX_EXCLUDEINODe = 9
+    INODE_INDEX_REPLICAINODE = 10
+    
+    NORMAL_FIRSTUSED = 11
+    
+    EXT4_XATTR_MAGIC = 0xEA020000
+
+EXT4_ XATTR_NAMEINDEX_STRINGS = ["", "user.", "system.posix_acl_access.",
+                                 "system.posix_acl_default",
+                                 "trusted.",
+                                 "lustre.",
+                                 "security.",
+                                 "system.",
+                                 "system.richacl"]
+```
+
+Please note that Python does not support direct translation of Java code into equivalent Python.

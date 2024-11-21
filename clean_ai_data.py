@@ -1,9 +1,13 @@
 import os
 import csv
 
-input_folder = "py_from_java_lambda_attempt_1"
-output_folder = "cleaning_attempt_6"
+input_folder = "py_from_java_lambda_attempt_2"
+output_folder = "cleaned_ai_data_7"
 ABOUT_SAMPLES_PATH = "about_samples.csv".lower()
+
+print("Parameters used by this script: ")
+print(f"Input Folder: {input_folder}")
+print(f"Output Folder: {output_folder}")
 
 def end_of_path(input_path: str):
     return input_path[max(input_path.rfind("/"), input_path.rfind("\\")) + 1:]

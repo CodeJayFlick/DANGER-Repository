@@ -1,0 +1,22 @@
+Here is the translation of the given Java code into equivalent Python:
+
+```Python
+class AARCH64_MachoRelocationConstants:
+    ARM64_RELOC_UNSIGNED = 0
+    ARM64_RELOC_SUBTRACTOR = 1
+    ARM64_RELOC_BRANCH26 = 2
+    ARM64_RELOC_PAGE21 = 3
+    ARM64_RELOC_PAGEOFF12 = 4
+    ARM64_RELOCGOT_LOAD_PAGE21 = 5
+    ARM64_RELOCGOT_LOAD_PAGEOFF12 = 6
+    ARM64_RELOC_POINTER_TO_GOT = 7
+    ARM64_RELOCTLVP_LOAD_PAGE21 = 8
+    ARM64_RELOCTLVP_LOAD_PAGEOFF12 = 9
+    ARM64_RELOC_ADDEND = 10
+    ARM64_RELOC_AUTHENTICATED POINTER = 11
+
+# You can access the constants like this:
+print(AARCH64_MachoRelocationConstants.ARM64_RELOC_UNSIGNED)
+```
+
+Please note that Python does not have direct equivalent of Java's `public final static` keyword. In Python, we don't need to specify any visibility or scope for variables and methods.

@@ -1,0 +1,24 @@
+Here is the translation of the given Java code into Python:
+
+```Python
+class GTaskManagerFactory:
+    _task_manager_map = weakref.WeakKeyDictionary()
+
+    def get_task_manager(domain_object):
+        if domain_object.is_closed():
+            raise AssertionError("Attempted to get a TaskManger for a closed domain object")
+        
+        task_manager = _task_manager_map.get(domain_object)
+        if task_manager is None:
+            shared_thread_pool = GThreadPool.get_shared_thread_pool("Program Thread")
+            task_manager = GTaskManager(domain_object, shared_thread_pool)
+            _task_manager_map[domain_object] = task_manager
+        
+        return task_manager
+
+    @staticmethod
+    def domain_object_closed(domain_object):
+        del _task_manager_map[domain_object]
+```
+
+Note that Python does not have a direct equivalent to Java's `Map` and `WeakHashMap`. Instead, we use the built-in dictionary (`dict`) which can be used as a weak key dictionary using the `weakref.WeakKeyDictionary` class.

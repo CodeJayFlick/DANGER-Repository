@@ -1,0 +1,2 @@
+class TraceUndefinedDataView:
+    pass

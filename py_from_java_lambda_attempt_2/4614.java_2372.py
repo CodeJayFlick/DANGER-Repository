@@ -1,0 +1,73 @@
+Here is the translation of the given Java code into equivalent Python:
+
+```Python
+class CoffMachineType:
+    # TODO: Need to confirm these 2 TI values are correct.  TI datasheet doesn't mention them.
+    TICOFF1MAGIC = 0x00c1
+    TICOFF2MAGIC = 0x00c2
+
+    IMAGE_FILE_MACHINE_UNKNOWN = 0x0000
+    IMAGE_FILE_MACHINE_ALPHA = 0x0184
+    IMAGE_FILE_MACHINE ALPHA64 = 0x0284
+    IMAGE_FILE_MACHINE_AM33 = 0x01d3
+    IMAGE_FILE_MACHINE_AMD64 = (0x8664)
+    IMAGE_FILE_MACHINE_AM29KBIGMAGIC = 0x017a
+    IMAGE_FILE_MACHINE_AM29KLITTLEMAGIC = 0x017b
+    IMAGE_FILE_MACHINE_ARM = 0x01c0
+    IMAGE_FILE_MACHINE_ARM64 = (0xaa64)
+    IMAGE_FILE_MACHINE_ARMNT = 0x01c4
+    IMAGE_FILE_MACHINE_EBC = 0x0ebc
+    IMAGE_FILE_MACHINE_I386 = 0x014c
+    IMAGE_FILE_MACHINE_I386_PT = 0x0154
+    IMAGE_FILE_MACHINE_I386_AIX = 0x0175
+    IMAGE_FILE_MACHINE_I960ROMAGIC = 0x0160
+    IMAGE_FILE_MACHINE_I960RWMAGIC = 0x0161
+    IMAGE_FILE_MACHINE_IA64 = 0x0200
+    IMAGE_FILE_MACHINE_M32R = (0x9041)
+    IMAGE_FILE_MACHINE_MIPS16 = 0x0266
+    IMAGE_FILE_MACHINE_MIPSFPU = 0x0366
+    IMAGE_FILE_MACHINE_MIPSFPU16 = 0x0466
+    IMAGE_FILE_MACHINE_M68KMAGIC = 0x0268
+    IMAGE_FILE_MACHINE_PIC30 = 0x1236
+    IMAGE_FILE_MACHINE_POWERPC = 0x01f0
+    IMAGE_FILE_MACHINE_POWERPCFP = 0x01f1
+    IMAGE_FILE_MACHINE_R3000 = 0x0162
+    IMAGE_FILE_MACHINE_R4000 = 0x0166
+    IMAGE_FILE_MACHINE_R10000 = 0x0168
+    IMAGE_FILE_MACHINE_RISCV32 = (0x5032)
+    IMAGE_FILE_MACHINE_RISCV64 = (0x5064)
+    IMAGE_FILE_MACHINE_RISCV128 = (0x5128)
+    IMAGE_FILE_MACHINE_SH3 = 0x01a2
+    IMAGE_FILE_MACHINE_SH3DSP = 0x01a3
+    IMAGE_FILE_MACHINE_SH4 = 0x01a6
+    IMAGE_FILE_MACHINE_SH5 = 0x01a8
+    IMAGE_FILE_MACHINE_TI_TMS470 = 0x0097
+    IMAGE_FILE_MACHINE_TI_TMS320C5400 = 0x0098
+    IMAGE_FILE_MACHINE_TI_TMS320C6000 = 0x0099
+    IMAGE_FILE_MACHINE_TI_TMS320C5500 = 0x009c
+    IMAGE_FILE_MACHINE_TI_TMS320C2800 = 0x009d
+    IMAGE_FILE_MACHINE_TI_MSP430 = 0x00a0
+    IMAGE_FILE_MACHINE_TI_TMS320C5500_PLUS = 0x00a1
+    IMAGE_FILE_MACHINE_THUMB = 0x01c2
+    IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x0169
+
+    @staticmethod
+    def is_machine_type_defined(type):
+        if type == CoffMachineType.IMAGE_FILE_MACHINE_UNKNOWN:
+            return False
+        
+        for field in CoffMachineType.__dict__.values():
+            if not isinstance(field, int) and not callable(getattr(CoffMachineType, field)):
+                try:
+                    if getattr(CoffMachineType, field).value == type:
+                        return True
+                except AttributeError:
+                    continue
+        
+        return False
+
+# Example usage:
+print(CoffMachineType.is_machine_type_defined(0x01c2))  # Returns: True
+```
+
+Please note that Python does not have a direct equivalent to Java's `enum` or `public static final`. Instead, we use class constants in the form of integers.

@@ -1,0 +1,10 @@
+# CoffConstants.py
+
+SECTION_NAME_LENGTH = 8
+SYMBOL_NAME_LENGTH = 8
+SYMBOL_SIZEOF = 18
+FILE_NAME_LENGTH = 14
+AUXILIARY_ARRAY_DIMENSION = 4
+
+class CoffConstants:
+    pass
