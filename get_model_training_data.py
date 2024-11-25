@@ -25,6 +25,8 @@ Created: 10/15/24; Author(s): Anthony Segrest
 import pandas as pd
 import os
 import csv
+import time
+import random
 
 #commented out folders have incorrect formatting currently, so they will crash the program
 CODE_UPLOAD_FOLDERS = [
@@ -36,6 +38,7 @@ CODE_UPLOAD_FOLDERS = [
     "Will_code_uploads",
     "aggregate_data",
     "cleaning_attempt_6",
+    "cleaned_ai_data_7"
 ]
 
 AI_LABEL = 'ai'
@@ -58,9 +61,9 @@ def _get_text_from_file(path: str):
             pass
     print(f"{path} could not be accessed. Most likely, the CSV did not have the exact path.") #TODO: should never happen. this happens when the filename in about_samples.csv is not an exact match of the actual filename
 
-def _get_samples_from_folder(folderpath: str):
-    labels = []
-    code_samples = []
+def _get_samples_from_folder(folderpath: str) -> dict[str, str]:
+    code_samples : dict[str, str] = dict()
+
     path_to_samples = os.path.join(folderpath, ABOUT_SAMPLES_PATH)
     samples_file = open(path_to_samples, 'r')
     csv_reader = csv.reader(samples_file)
@@ -72,26 +75,45 @@ def _get_samples_from_folder(folderpath: str):
         code = _get_text_from_file(
             os.path.join(folderpath, row[0]))
         if code is not None: #TODO: this code shouldn't be None. unclear why this is happening (probably misformatting?)
-            code_samples.append(_get_text_from_file(
-                os.path.join(folderpath, row[0])))
-            labels.append(_standard_label(row[1]))
+            code_samples[code] = _standard_label(row[1])
         else:
             print("Code was None, somehow.")
         #print(row)
-    return labels, code_samples    
+    return code_samples    
 
-def get_dataframe():
-    labels = []
-    code_samples = []
+def get_dataframe(balance_dataset=True, random_seed=None):
+    """
+    Returns the dataframe, containing all the specified data.
+
+    If balance_dataset is True, will return the same number of each class, by returning all of the
+    class with fewer elements, and a randomly chosen subset of the class with more elements.
+
+    If random_seed is not None, and balance_dataset is True, the above randomization will be done via the 
+    specified seed. If random_seed is None, and balance_dataset is True, the randomization will be seeded with time.time().
+
+
+    """
+    code_samples : dict[str, str] = dict()
 
     for folder in CODE_UPLOAD_FOLDERS:
         print(f"Starting folder: {folder}")
-        new_labels, new_samples = _get_samples_from_folder(folder)
-        labels += new_labels
-        code_samples += new_samples
+        new_samples = _get_samples_from_folder(folder)
+        for code in new_samples:
+            code_samples[code] = new_samples[code]
 
-    num_ai_samples = len([label for label in labels if label == AI_LABEL])
-    num_human_samples = len([label for label in labels if label == HUMAN_LABEL])
+    num_ai_samples = len([code for code in code_samples if code_samples[code] == AI_LABEL])
+    num_human_samples = len([code for code in code_samples if code_samples[code] == HUMAN_LABEL])
     print(f"Total: {num_ai_samples} AI-generated code pieces; {num_human_samples} Human-written code samples.")
-    df = pd.DataFrame({"label" : labels, "code_sample" : code_samples})
+    if balance_dataset:
+        rand = random.Random(x=random_seed if random_seed is not None else time.time())
+        samples_to_take = min(num_ai_samples, num_human_samples)
+        print(f"To balance the dataset, we are taking {samples_to_take} of each class.")
+        chosen_ai_samples = rand.sample([code for code in code_samples if code_samples[code] == AI_LABEL], samples_to_take)
+        chosen_human_samples = rand.sample([code for code in code_samples if code_samples[code] == HUMAN_LABEL], samples_to_take)
+    else:
+        chosen_ai_samples = [code for code in code_samples if code_samples[code] == AI_LABEL]
+        chosen_human_samples = [code for code in code_samples if code_samples[code] == HUMAN_LABEL]
+    
+    df = pd.DataFrame({"label" : [AI_LABEL] * len(chosen_ai_samples) + [HUMAN_LABEL] * len(chosen_human_samples), 
+                       "code_sample" : chosen_ai_samples + chosen_human_samples})
     return df
