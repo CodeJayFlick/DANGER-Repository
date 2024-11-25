@@ -1,3 +1,5 @@
+import sys
+import time
 import get_model_training_data
 import torch
 import torch.nn as nn
@@ -12,13 +14,21 @@ df = get_model_training_data.get_dataframe()
 df['msg_type'] = df['label'].map({'human': 0, 'ai': 1})
 msg_label = df['msg_type'].values
 
-# Split the data into training/testing data
+# Split the data into training/testing data with only two columns, msg_type and code_sample
 train_texts, test_texts, train_labels, test_labels = train_test_split(df['code_sample'], df['msg_type'], test_size=0.2, random_state=42)
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
+# Tokenize a file to test the trained model on
+# Requires a file labeled chatgpt_test.py in directory
+tokenized = tokenizer(str(open('chatgpt_test.py')), truncation=True, padding=True, max_length=512, return_tensors='pt')
+
+# TODO: Figure out how to use larger max lengths (if necessary)
+print('Beginning tokenization...')
+start_time = time.time()
 train_encodings = tokenizer(list(train_texts), truncation=True, padding=True, max_length=512, return_tensors='pt')
 test_encodings = tokenizer(list(test_texts), truncation=True, padding=True, max_length=512, return_tensors='pt')
+print(f'Finished tokenization in {time.time() - start_time} seconds')
 
 train_labels_tensor = torch.tensor(train_labels.values, dtype=torch.long)
 test_labels_tensor = torch.tensor(test_labels.values, dtype=torch.long)
@@ -78,18 +88,21 @@ class TextClassifier(nn.Module):
 
 # Instantiate the model, loss function, and optimizer
 model = TextClassifier()
-# Move the device to the GPU, if available
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model = model.to(device)
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.AdamW(model.parameters(), lr=2e-5)
 
+# Move the device to the GPU, if available
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = model.to(device)
+print(f'Device: {str(device).upper()}\n')
+
 # Training loop
-num_epochs = 100
+num_epochs = 10
 
 for epoch in range(num_epochs):
     model.train()
-    for batch in tqdm(train_loader, desc=f'Training epoch {epoch + 1}'):
+    for batch in tqdm(train_loader, desc=f'Training epoch {epoch + 1}', file=sys.stdout):
         inputs = batch['input_ids'].to(device)
         labels = batch['labels'].to(device)
         attention_mask = batch['attention_mask'].to(device)
@@ -100,8 +113,7 @@ for epoch in range(num_epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
-    print(f'Epoch {epoch + 1}, Loss: {loss.item()}')
+    print(f'Epoch {epoch + 1}, Loss: {loss.item()}\n')
 
 # Model testing section
 correct = 0
@@ -110,9 +122,15 @@ test_loss = 0.0
 
 model.eval()
 
+with torch.no_grad():
+    temp_inputs = tokenized.input_ids
+    temp_attention_mask = tokenized.attention_mask
+    _, temp_predicted = torch.max(model(temp_inputs, temp_attention_mask), 1)
+    print(temp_predicted == 1) # Prints True if code is predicted to be AI
+
 # Disable gradient calculations for testing
 with torch.no_grad():
-    for batch in test_loader:
+    for batch in tqdm(test_loader, desc='Testing model', file=sys.stdout):
         inputs = batch['input_ids'].to(device)
         labels = batch['labels'].to(device)
         attention_mask = batch['attention_mask'].to(device)
@@ -130,5 +148,4 @@ with torch.no_grad():
 avg_test_loss = test_loss / len(test_loader)
 accuracy = 100 * correct / total
 
-print(f"Test Loss: {avg_test_loss:.4f}, Test Accuracy: {accuracy:.2f}%")
-
+print(f'\n\nTest Loss: {avg_test_loss:.4f}, Test Accuracy: {accuracy:.2f}%')
