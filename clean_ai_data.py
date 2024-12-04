@@ -1,9 +1,9 @@
 import os
 import csv
+import constants
 
 input_folder = "py_from_java_lambda_attempt_2"
 output_folder = "cleaned_ai_data_7"
-ABOUT_SAMPLES_PATH = "about_samples.csv".lower()
 
 print("Parameters used by this script: ")
 print(f"Input Folder: {input_folder}")
@@ -50,10 +50,10 @@ if os.path.isdir(output_folder) and len(os.listdir(output_folder)) != 0:
 if not os.path.isdir(output_folder):
     os.mkdir(output_folder)
 
-old_about_samples_file = open(os.path.join(input_folder, ABOUT_SAMPLES_PATH), 'r')
+old_about_samples_file = open(os.path.join(input_folder, constants.CSV_PATH_NAME), 'r')
 old_about_samples_csv = csv.reader(old_about_samples_file)
 
-new_about_samples_file = open(os.path.join(output_folder, ABOUT_SAMPLES_PATH), 'w', newline='')
+new_about_samples_file = open(os.path.join(output_folder, constants.CSV_PATH_NAME), 'w', newline='')
 new_about_samples_csv = csv.writer(new_about_samples_file)
 new_about_samples_csv.writerow(["Filename", "AI", "Comments"])
 
@@ -63,7 +63,7 @@ for row in old_about_samples_csv:
     is_ai = row[1]
     source = row[2]
 
-    if filename.lower() == ABOUT_SAMPLES_PATH: # should never happen but just in case
+    if filename.lower() == constants.CSV_PATH_NAME: # should never happen but just in case
         continue
     # print(f"Starting {filename}.")
 

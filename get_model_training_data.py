@@ -28,7 +28,6 @@ import csv
 import time
 import random
 
-#commented out folders have incorrect formatting currently, so they will crash the program
 CODE_UPLOAD_FOLDERS = [
     "Anthony_code_uploads",
     "Cody_code_uploads",

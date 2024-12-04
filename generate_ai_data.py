@@ -1,28 +1,45 @@
-import time
 import csv
 import os
 from gpt4all import GPT4All
 
+import constants
 
-folder_to_translate_from = "aggregate_data_java_fixed"
-output_folder = "py_from_java_lambda_attempt_2"
-CSV_PATH_NAME = "about_samples.csv"
-model_name = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
+# Parameters Start
 
-previous_generation_folders = ["py_from_java_lambda_attempt_1"] # program will ignore files from the about samples here
-# previous_generation_folders should only have the folders that were made from the same folder_to_translate_from
+folder_to_translate_from: str = "aggregate_data_java_fixed"
+output_folder: str = "py_from_java_lambda_attempt_2"
+model_name: str = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
+device : str = "cpu"
 
-model = GPT4All(model_name, n_ctx=10000, device="cuda") # downloads / loads a 4.66GB LLM
-max_tokens = 3000
+previous_generation_folders: list[str] = [""]
+
+# Parameters End
+
 
 if os.path.isdir(output_folder) and len(os.listdir(output_folder)) != 0:
     exit(f"{output_folder} exists and is not empty. Exiting script.")
 
+print("Current Parameters:") 
+print(f"Folder with Human-Written code to translate: {folder_to_translate_from}")
+print(f"Folder that output will be written to: {output_folder}")
+print(f"Name of LLM that will generate the data: {model_name}")
+print(f"Device the LLM will run on: {device}. Main options for this are 'cpu', 'gpu', and 'cuda'. For a full list"
+      " of values, see the GPT4ALL documentation.")
+print(f"If this script has been interrupted before all data was generated, it is possible to skip all code files "
+      "that were already processed. To do this, put the names of the previous output folders in previous_generation_folders.")
+if previous_generation_folders:
+    print(f"The current contents of previous_generation_folders: {', '.join(previous_generation_folders)}")
+else:
+    print("There are currently no folder names in previous_generation_folders.")
+if input("If you would like to continue, enter ").lower() != "y":
+    exit("Script cancelled.")
+print("Script starting.")
+
+model = GPT4All(model_name, n_ctx=10000, device="cuda")
+max_tokens = 3000
+
 if not os.path.isdir(output_folder):
     os.mkdir(output_folder)
-
-# start_time = time.time()
-# output_name = 'output_ai_test_1.txt'
 
 def end_of_path(input_path: str):
     return input_path[max(input_path.rfind("/"), input_path.rfind("\\")) + 1:]
@@ -41,7 +58,7 @@ def write_file_with_prompt(filename_to_write: str, prompt: str, do_print=True):
 
 previously_generated_filenames = []
 for folderpath in previous_generation_folders:
-    previous_generation_csv_file = open(os.path.join(folderpath, CSV_PATH_NAME), 'r')
+    previous_generation_csv_file = open(os.path.join(folderpath, constants.CSV_PATH_NAME), 'r')
     csv_reader = csv.reader(previous_generation_csv_file)
     csv_reader.__next__() # skip first row
     for row in csv_reader:
@@ -52,7 +69,7 @@ for folderpath in previous_generation_folders:
         previously_generated_filenames.append(code_filename[0:original_path_end])
         print(f"{len(previously_generated_filenames)}; {previously_generated_filenames[-1]}")
 
-csv_file_output = open(os.path.join(output_folder, CSV_PATH_NAME), 'w', newline='')
+csv_file_output = open(os.path.join(output_folder, constants.CSV_PATH_NAME), 'w', newline='')
 csv_writer = csv.writer(csv_file_output)
 csv_writer.writerow(["Filename", "AI", "Source"])
 
@@ -77,8 +94,4 @@ for filename in os.listdir(folder_to_translate_from):
     except Exception as e:
         print(f"Ran into exception of type {type(e)}: {e}.")
         print(f"Skipping {filename} as a result.")
-
-# end_time = time.time()
-# print(f"Completed generation in {end_time - start_time} seconds, with {max_tokens} max_tokens.")
-# print(f"If all tokens were generated, ran at {max_tokens / (end_time - start_time)} tokens per second.")
 

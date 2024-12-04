@@ -1,9 +1,11 @@
+exit("Unused script.")
+
 import csv
 import os
 import shutil
+import constants
 
 folder_path = "aggregate_data_java"
-ABOUT_SAMPLES_NAME = "about_samples.csv"
 new_folder_path = "aggregate_data_java_fixed"
 new_about_samples_name = "new_about_samples.csv"
 
@@ -11,7 +13,7 @@ assert not os.path.exists(new_folder_path) or not os.listdir(new_folder_path) # 
 if not os.path.exists(new_folder_path):
     os.mkdir(new_folder_path)
 
-csv_read_file = open(os.path.join(folder_path, ABOUT_SAMPLES_NAME), 'r')
+csv_read_file = open(os.path.join(folder_path, constants.CSV_PATH_NAME), 'r')
 csvreader = csv.reader(csv_read_file)
 
 csv_write_file = open(os.path.join(new_folder_path, new_about_samples_name), 'w', newline='')
