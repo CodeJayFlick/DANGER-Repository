@@ -19,6 +19,12 @@ github_links : list[str] = [
 
 date_to_access_string = "2021-10-28" # one day before release date of GitHub Copilot, way before ChatGPT
 
+if not github_links:
+    print("github_links is empty.")
+
+print("Current Parameters:")
+print(f"github_links: {', '.join(github_links)}")
+print(f"Date that GitHubs will be reset to: {date_to_access_string}")
 
 
 import requests
@@ -85,13 +91,8 @@ def clone_repos():
 
         main_branch_name = get_repo_master_main_branch_name(main_repo_link_to_api_request_link(link))
         commit_to_move_to = run_command_with_confirm(f"git rev-list -1 {rev_list_time_arg} {main_branch_name}", cwd=cwd)
-
-        # for name in MAIN_BRANCH_POSSIBLE_NAMES:
-        #     try:
-        #         commit_to_move_to = run_command_with_confirm(f"git rev-list -1 {rev_list_time_arg} {name}", cwd=cwd)
-        #         break
-        #     except CalledProcessError:
-        #         print(f"Command failed with {name} as the main/master branch. This is OK if it's just named the other one")
         
         reset_repo_to_date = f"git reset --hard {commit_to_move_to}"
         print(run_command_with_confirm(reset_repo_to_date, cwd=cwd))
+
+clone_repos()
