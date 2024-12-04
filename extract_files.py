@@ -4,7 +4,7 @@ folder.
 The repos must already be cloned - use old_github_collection.py for that.
 
 folders_to_clone - A list of all the folders that code should be copied from.
-OUTPUT_FOLDER_NAME - The name of the folder to put everything in.
+output_folder_name - The name of the folder to put everything in.
 extension - The extension to search for (include the '.')
 
 Version: 1.1

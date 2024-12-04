@@ -7,7 +7,7 @@ date_to_access_string - The date the repos should be set to
 
 If a GitHub repo did not exist prior to the specified date, it is simply not cloned at all.
 
-Use extract_py_files.py to get all the .py files from the GitHub repos into one overall folder.
+Use extract_files.py to get all the .py files from the GitHub repos into one overall folder.
 
 Version: 1.1
 Date: 12-4-2024
