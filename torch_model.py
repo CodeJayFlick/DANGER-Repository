@@ -171,4 +171,4 @@ plt.ylabel("Loss")
 plt.grid(True)
 plt.show()
 
-torch.save(model.state_dict(), 'model_weights/')
+torch.save(model.state_dict(), 'model_weights/model.pth')

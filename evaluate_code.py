@@ -34,12 +34,12 @@ class TextClassifier(nn.Module):
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 model = TextClassifier()
-model.load_state_dict(torch.load('model_weights/', weights_only=True))
+model.load_state_dict(torch.load('model_weights/model.pth', weights_only=True))
 model.eval()
 
 # TODO: Change to using file passed in command line
 
-file = 'path/to/directory'
+file = 'human_test.py'
 
 tokenized_file = tokenizer(str(open(file)), truncation=True, padding=True, max_length=512, return_tensors='pt')
 
