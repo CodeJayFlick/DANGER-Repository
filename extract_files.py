@@ -1,11 +1,13 @@
 """
-This script copies all Python files from specified GitHub repos, and puts them into one 
+This script copies all files of a specified extension from specified folders, and puts them into one 
 folder. 
-The repos must already be cloned - use old_github_collection.py for that.
 
 folders_to_clone - A list of all the folders that code should be copied from.
 output_folder_name - The name of the folder to put everything in.
 extension - The extension to search for (include the '.')
+
+Other notes: If the folder specified is a GitHub repository, then the Source column in
+about_samples.csv will use the GitHub repo name as the source, rather than the folder name.
 
 Version: 1.1
 Date: 12-4-2024
@@ -14,7 +16,7 @@ Author(s): Anthony S
 
 # Parameters Start
 
-folders_to_extract_from = ["test", "Python"]
+folders_to_extract_from = []
 output_folder_name : str = 'test_extract_files'
 extension : str = '.py'
 
@@ -85,7 +87,7 @@ def extract_files():
         for path in all_filepaths:
             if not path.endswith(extension):
                 continue
-            new_filename = path.replace("/", '__').replace("\\", "__")[:-3] + f"_{count}{extension}"
+            new_filename = path.replace("/", '__').replace("\\", "__")[:-len(extension)] + f"_{count}{extension}"
             new_full_filepath = os.path.join(output_folder_name, new_filename)
             try:
                 shutil.copy(path, new_full_filepath)
@@ -93,3 +95,5 @@ def extract_files():
                 print(f"{path} could not be copied. This is likely because {len(path)=}")
             csv_writer.writerow([new_filename, False, find_git_url(folder_name)])
             count += 1
+
+extract_files()

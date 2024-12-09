@@ -16,11 +16,11 @@ Author(s): Anthony S
 
 github_links : list[str] = [
 ]
-
 date_to_access_string = "2021-10-28" # one day before release date of GitHub Copilot, way before ChatGPT
 
 if not github_links:
     print("github_links is empty.")
+    exit()
 
 print("Current Parameters:")
 print(f"github_links: {', '.join(github_links)}")

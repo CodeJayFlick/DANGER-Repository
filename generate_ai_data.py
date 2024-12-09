@@ -1,3 +1,18 @@
+"""
+This script allows generating AI code using an LLM through the Python library GPT4All. 
+
+To generate unique code, the model translates human-written code from another language,
+using the input files in a given folder.
+
+Parameters:
+- folder_to_translate_from: The folder of code that will be given as a prompt to the model
+- output_folder: The folder to write to
+- model_name: The name of the model to use. See GPT4All's documentation on what names are usable.
+- device: The device to run the model on. Most commonly one of {"cpu", "gpu", "cuda"}. See GPT4All's 
+    documentation on what devices are usable.
+
+Notes: Output must be cleaned by clean_ai_data.py.
+"""
 import csv
 import os
 from gpt4all import GPT4All
