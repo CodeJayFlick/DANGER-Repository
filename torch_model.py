@@ -1,3 +1,10 @@
+# Parameters Start
+
+model_save_path = "BERT_model_default.pth"
+
+# Parameters End
+
+
 import sys
 import time
 import get_model_training_data
@@ -23,9 +30,9 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 # Tokenize a file to test the trained model on
 # Requires files labeled chatgpt_test.py and human_test.py in directory
-ai_tokenized = tokenizer(str(open('chatgpt_test.py')), truncation=True, padding=True, max_length=512,
+ai_tokenized = tokenizer(str(open('extract_files.py')), truncation=True, padding=True, max_length=512,
                          return_tensors='pt')  # This file is AI generated
-human_tokenized = tokenizer(str(open('human_test.py')), truncation=True, padding=True, max_length=512,
+human_tokenized = tokenizer(str(open('extract_files.py')), truncation=True, padding=True, max_length=512,
                             return_tensors='pt')  # This file is human generated
 
 # TODO: Figure out how to use larger max lengths (if necessary...)
@@ -126,6 +133,7 @@ correct = 0
 total = 0
 test_loss = 0.0
 
+torch.save(model, model_save_path)
 model.eval()
 
 with torch.no_grad():
@@ -171,4 +179,4 @@ plt.ylabel("Loss")
 plt.grid(True)
 plt.show()
 
-torch.save(model.state_dict(), 'model_weights/model.pth')
+# torch.save(model.state_dict(), 'model_weights/model.pth')
