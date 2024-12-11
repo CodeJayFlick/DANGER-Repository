@@ -20,8 +20,12 @@ import os
 import csv
 import constants
 
+# Parameters Start
+
 input_folder = "py_from_java_lambda_attempt_2"
 output_folder = "cleaned_ai_data_7"
+
+# Parameters End
 
 print("Parameters used by this script: ")
 print(f"Input Folder: {input_folder}")

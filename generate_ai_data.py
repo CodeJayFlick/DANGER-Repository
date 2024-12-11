@@ -22,7 +22,7 @@ import constants
 # Parameters Start
 
 folder_to_translate_from: str = "aggregate_data_java_fixed"
-output_folder: str = "py_from_java_lambda_attempt_2"
+output_folder: str = "py_from_java_lambda_attempt_3"
 model_name: str = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
 device : str = "cpu"
 
@@ -46,7 +46,7 @@ if previous_generation_folders:
     print(f"The current contents of previous_generation_folders: {', '.join(previous_generation_folders)}")
 else:
     print("There are currently no folder names in previous_generation_folders.")
-if input("If you would like to continue, enter ").lower() != "y":
+if input("If you would like to continue, enter 'y'").lower() != "y":
     exit("Script cancelled.")
 print("Script starting.")
 

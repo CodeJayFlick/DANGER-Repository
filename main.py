@@ -2,6 +2,7 @@
 
 filenames_to_check: list[str] = [".\\Anthony_code_uploads\\discourse_posts_histogram_chatgpt.py"]
 BERT_model_path = "default_BERT_model.pth"
+reformer_model_path = ""
 
 # Parameters End
 
@@ -50,10 +51,6 @@ model = torch.load(BERT_model_path, weights_only=False, map_location=device)
 model.eval()
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-# model = model.to(device)
-
-
-
 
 def run_model(filename: str):
     with open(filename, 'r') as file:
@@ -66,12 +63,13 @@ def run_model(filename: str):
         cat_1_probs_human = human_probs[:, 1]
         human_probability = float(cat_1_probs_human[0].item())
         human_probability = round(human_probability * 100, 2)
-        print(f"{filename} has a {human_probability} percent chance of being human-written.")
+        print(f"BERT evaluation: {filename} has a {human_probability} percent chance of being human-written.")
 
 
 print("Current Parameters:")
 print(f"Files that will be tested: {', '.join(filenames_to_check)}")
-print(f"Model Path: {BERT_model_path}")
+print(f"BERT Model Path: {BERT_model_path}")
+print(f"Reformer Model Path: {reformer_model_path}")
 
 for filename in filenames_to_check:
     run_model(filename)

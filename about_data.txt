@@ -1,0 +1,15 @@
+Manually gathered:
+Anthony_code_uploads
+Cody_code_uploads
+Kian_code_uploads
+Olivia_code_uploads
+Tobias_code_uploads
+Will_code_uploads
+
+From GitHub scraper:
+aggregate_data - Human Written code
+aggregate_data_java_fixed - Human Written Java code
+
+From LLM:
+py_from_java_lambda_attempt_1 - Python code, translated by an LLM from aggregate_data_java_fixed
+cleaning_attempt_6 - Python code, cleaned up from py_from_java_lambda_attempt_1

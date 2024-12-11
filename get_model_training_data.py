@@ -27,6 +27,9 @@ import os
 import csv
 import time
 import random
+import constants
+
+# Paramters Start
 
 CODE_UPLOAD_FOLDERS = [
     "Anthony_code_uploads",
@@ -42,7 +45,10 @@ CODE_UPLOAD_FOLDERS = [
 
 AI_LABEL = 'ai'
 HUMAN_LABEL = 'human'
-ABOUT_SAMPLES_PATH = "about_samples.csv"
+
+# Parameters End
+
+ABOUT_SAMPLES_PATH = constants.CSV_PATH_NAME
 
 def _standard_label(input_str: str):
     input_str = input_str.lower().strip()

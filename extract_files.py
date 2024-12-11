@@ -16,8 +16,8 @@ Author(s): Anthony S
 
 # Parameters Start
 
-folders_to_extract_from = []
-output_folder_name : str = 'test_extract_files'
+folders_to_extract_from = ["superset"]
+output_folder_name : str = 'test_extract_files_4'
 extension : str = '.py'
 
 # Parameters End
