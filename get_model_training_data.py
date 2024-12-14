@@ -86,7 +86,7 @@ def _get_samples_from_folder(folderpath: str) -> dict[str, str]:
         #print(row)
     return code_samples    
 
-def get_dataframe(balance_dataset=True, random_seed=None):
+def get_dataframe(balance_dataset=True, random_seed=None, code_sample_labeled_as_text=False, max_samples=-1, use_numeric_labels=False):
     """
     Returns the dataframe, containing all the specified data.
 
@@ -96,8 +96,14 @@ def get_dataframe(balance_dataset=True, random_seed=None):
     If random_seed is not None, and balance_dataset is True, the above randomization will be done via the 
     specified seed. If random_seed is None, and balance_dataset is True, the randomization will be seeded with time.time().
 
+    If code_sample_labeled_as_text is True, the "code_sample" column in the DataFrame will instead be named "text".
 
+    If max_samples is not -1, then it will be used as a cap for the total number of returned samples. This number must be even.
+    Also, if the number of samples would be exceeded, then the data returned has the same number of each class.
+
+    If use_numeric_labels is True, then the "label" column will have 1 instead of "ai" and 0 instead of "human".
     """
+    assert max_samples == -1 or max_samples % 2 == 0
     code_samples : dict[str, str] = dict()
 
     for folder in CODE_UPLOAD_FOLDERS:
@@ -105,13 +111,16 @@ def get_dataframe(balance_dataset=True, random_seed=None):
         new_samples = _get_samples_from_folder(folder)
         for code in new_samples:
             code_samples[code] = new_samples[code]
+    del code_samples[""]
+    for code in code_samples:
+        assert code is not None
 
     num_ai_samples = len([code for code in code_samples if code_samples[code] == AI_LABEL])
     num_human_samples = len([code for code in code_samples if code_samples[code] == HUMAN_LABEL])
     print(f"Total: {num_ai_samples} AI-generated code pieces; {num_human_samples} Human-written code samples.")
-    if balance_dataset:
+    if balance_dataset or (max_samples != -1 and num_ai_samples + num_human_samples > max_samples):
         rand = random.Random(x=random_seed if random_seed is not None else time.time())
-        samples_to_take = min(num_ai_samples, num_human_samples)
+        samples_to_take = min(num_ai_samples, num_human_samples, (max_samples // 2) if max_samples != -1 else num_ai_samples)
         print(f"To balance the dataset, we are taking {samples_to_take} of each class.")
         chosen_ai_samples = rand.sample([code for code in code_samples if code_samples[code] == AI_LABEL], samples_to_take)
         chosen_human_samples = rand.sample([code for code in code_samples if code_samples[code] == HUMAN_LABEL], samples_to_take)
@@ -119,6 +128,7 @@ def get_dataframe(balance_dataset=True, random_seed=None):
         chosen_ai_samples = [code for code in code_samples if code_samples[code] == AI_LABEL]
         chosen_human_samples = [code for code in code_samples if code_samples[code] == HUMAN_LABEL]
     
-    df = pd.DataFrame({"label" : [AI_LABEL] * len(chosen_ai_samples) + [HUMAN_LABEL] * len(chosen_human_samples), 
-                       "code_sample" : chosen_ai_samples + chosen_human_samples})
+
+    df = pd.DataFrame({"label" : [AI_LABEL if not use_numeric_labels else 1] * len(chosen_ai_samples) + [HUMAN_LABEL if not use_numeric_labels else 0] * len(chosen_human_samples), 
+                       ("code_sample" if not code_sample_labeled_as_text else "text") : chosen_ai_samples + chosen_human_samples})
     return df
