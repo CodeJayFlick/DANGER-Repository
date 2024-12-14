@@ -65,8 +65,10 @@ def replace_using_map(code, repl_map):
         code = re.sub(r'\b' + re.escape(key) + r'\b', val, code)
     return code
 
+#Directory Names for all Human/AI Code
+
 # Read file, need to make general case just a for each
-with open("Will_code_uploads/TSPGHGRD.py", "r") as file:
+with open("cleaning_attempt_6\97.java_1870.py", "r") as file:
     source_code = file.read()
 
 # Parse and transform the AST
@@ -81,7 +83,7 @@ new_code = replace_using_map(new_code, transformer.var_map)
 new_code = replace_using_map(new_code, transformer.param_map)
 
 # Creating the new file, need to work out making it in general case
-with open("Will_code_uploads/renamed_ex3.py", "w") as file:
+with open("Will_code_uploads/renamed_ex5.py", "w") as file:
     file.write(new_code)
 
 print("Renaming complete!")

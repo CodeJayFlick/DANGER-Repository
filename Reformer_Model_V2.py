@@ -72,9 +72,9 @@ class Tokenizer:
     def padding(self, text_sequences):
         for i, seq in enumerate(text_sequences):
             if len(seq) > self.max_tokens:
-                text_sequences[i] = seq[self.max_tokens]
+                text_sequences[i] = seq[:self.max_tokens]
             elif len(seq) < self.max_tokens:
-                text_sequences[i] = seq + [0] * (self.max_tokens - len(text_sequences))
+                text_sequences[i] = seq + [0] * (self.max_tokens - len(seq))
         return text_sequences
 
 tokenizer = Tokenizer(max_tokens = 64000)
@@ -210,11 +210,11 @@ class LocalLSHAttention (nn.Module):
         output = torch.zeros_like(x)
 
         # Iterating each hash id in order to compute attention within each bucket
-        for hash_idx in range():
+        for hash_idx in range(self.n_hashes):
             round_buckets = buckets[:, hash_idx, :] # Retreives current hash assignment for bucket in current round
 
         # Iteration of each bucket
-        for bucket_id in range():
+        for bucket_id in range(self.num_buckets):
             bucket_mask = torch.eq(round_buckets, bucket_id) # Mask tokens to the bucket
             if bucket_mask.sum() == 0:
                 continue # Skip any empty buckets
@@ -308,7 +308,7 @@ class LSHSelfAttention(nn.Module):
         self.return_attn = return_attn
 
         self.qvk = nn.Linear(dim, 3 * dim, bias = False)
-        self.out = nn.Linear(dim_heads, dim)
+        self.out = nn.Linear(dim_head, dim)
 
     def forward(self, tensor, keys = None, input_mask = None, input_mask_attn = None, pos_emb = None, **kwargs):
         device = tensor.device
@@ -337,8 +337,8 @@ class Gelu_(nn.Module):
 #class
 
 # Creating the class that will execute the Reformer Model
-class ReformerModel(torch.nn):
-    def __init__(self, attention_head_size = 64, d_model = 32, d_ff = 512, batch_size = 32, num_hashes = 8, num_buckets = 64, max_len = 64000, attn_config, vocab_size = 512):
+class ReformerModel(torch.nn.Module):
+    def __init__(self, attention_head_size = 64, d_model = 32, d_ff = 512, batch_size = 32, num_hashes = 8, num_buckets = 64, max_len = 64000,  vocab_size = 512):
         super(ReformerModel, self).__init__()
         self.d_model = d_model
         self.d_ff = d_ff
