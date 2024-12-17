@@ -98,6 +98,7 @@ trainer = Trainer(model=model,
                   train_dataset=small_train_dataset,
                   eval_dataset=small_eval_dataset,
                   data_collator=collate_fn,
+                  tokenizer=tokenizer,
                   compute_metrics=compute_metrics)
 
 trainer.train()

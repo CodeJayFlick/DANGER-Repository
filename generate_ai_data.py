@@ -22,11 +22,12 @@ import constants
 # Parameters Start
 
 folder_to_translate_from: str = "aggregate_data_java_fixed"
-output_folder: str = "py_from_java_lambda_attempt_3"
+output_folder: str = "ai_generated_presentation_example_2"
 model_name: str = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"
-device : str = "cpu"
+device : str = "cuda"
 
-previous_generation_folders: list[str] = [""]
+previous_generation_folders: list[str] = ["py_from_java_lambda_attempt_1", "py_from_java_lambda_attempt_2", 
+                                          "ai_generated_presentation_example"]
 
 # Parameters End
 
@@ -95,7 +96,7 @@ for filename in os.listdir(folder_to_translate_from):
     if filename in previously_generated_filenames:
         print(f"Skipping {filename}, as it was previously generated.")
         continue
-    print(f"Starting {filename}.")
+    print(f"\nStarting {filename}.")
     try:
         with open(os.path.join(folder_to_translate_from, filename), 'r') as prompt_file:
             prompt = f"The following is a file of code. Translate it to Python.\n\n"

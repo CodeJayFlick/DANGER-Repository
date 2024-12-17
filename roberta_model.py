@@ -5,14 +5,14 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
-from transformers import BertTokenizer, BertModel
+from transformers import RobertaTokenizer, RobertaModel
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
 
 # Parameters Start
 
-model_name = "bert-base-uncased"
+model_name = "roberta-base"
 model_save_path = f"{model_name.replace('/', '_ _')}_finetuned.pth" # Do not change
 
 # Tested model names: bert-base-uncased, bert-base-cased
@@ -38,7 +38,7 @@ class TextDataset(Dataset):
 class TextClassifier(nn.Module):
     def __init__(self, model_name, num_classes=2):
         super(TextClassifier, self).__init__()
-        self.bert = BertModel.from_pretrained(model_name)
+        self.bert = RobertaModel.from_pretrained(model_name)
         self.dropout = nn.Dropout(0.3)
         self.fc1 = nn.Linear(self.bert.config.hidden_size, 128)
         self.fc2 = nn.Linear(128, 64)
@@ -72,7 +72,7 @@ def main():
     train_texts, test_texts, train_labels, test_labels = train_test_split(df['code_sample'], df['msg_type'], test_size=0.2,
                                                                     random_state=42)
 
-    tokenizer = BertTokenizer.from_pretrained(model_name)
+    tokenizer = RobertaTokenizer.from_pretrained(model_name)
 
     print('Beginning tokenization...')
     start_time = time.time()
@@ -152,3 +152,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

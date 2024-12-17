@@ -15,7 +15,8 @@ Author(s): Anthony S
 """ 
 
 github_links : list[str] = [
-    "https://github.com/moneytoo/Player"
+    "https://github.com/moneytoo/Player",
+    "https://github.com/kdeldycke/awesome-falsehood"
 ]
 date_to_access_string = "2021-10-28" # one day before release date of GitHub Copilot, way before ChatGPT
 

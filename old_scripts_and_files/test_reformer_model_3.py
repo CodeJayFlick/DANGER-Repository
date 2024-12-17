@@ -17,6 +17,7 @@ from tqdm import tqdm
 from torch.optim import AdamW
 from transformers import get_scheduler
 
+
 print("Imports complete")
 
 
@@ -41,6 +42,7 @@ full_dataset = DatasetDict({"train" : train_dataset, "test" : test_dataset})
 
 full_dataset = dataset
 
+
 tokenizer = AutoTokenizer.from_pretrained("google/reformer-crime-and-punishment")
 tokenizer.pad_token = tokenizer.eos_token
 assert tokenizer.pad_token_id == tokenizer.eos_token_id
@@ -60,17 +62,14 @@ print(small_train_dataset[0])  # Check a single sample
 config = AutoConfig.from_pretrained("google/reformer-crime-and-punishment", num_labels=2)
 model = ReformerForSequenceClassification.from_pretrained("google/reformer-crime-and-punishment", config=config)
 
-# device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-# model.to(device)
-
-device = torch.device("cpu")  # Force CPU
+device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 model.to(device)
-
 
 
 optimizer = AdamW(model.parameters(), lr=5e-5)
 num_training_steps = len(small_train_dataset) * 3  # 3 epochs
 lr_scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
+
 
 epochs = 3
 
@@ -81,6 +80,65 @@ small_eval_dataset = small_eval_dataset.remove_columns(["text"])
 
 small_train_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "labels"])
 small_eval_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "labels"])
+
+
+# for epoch in range(epochs):
+#     print(f"Epoch {epoch + 1}")
+#     model.train()
+#     train_loss = 0
+
+
+#     loop = tqdm(small_train_dataset, leave=True)
+#     for batch in loop:
+#         # Move data to device
+#         batch = {k: v for k, v in batch.items()}
+        
+#         # Forward pass
+#         outputs = model(**batch)
+#         loss = outputs.loss
+#         logits = outputs.logits
+        
+#         # Backward pass
+#         optimizer.zero_grad()
+#         loss.backward()
+#         optimizer.step()
+#         lr_scheduler.step()
+        
+#         # Update progress bar
+#         train_loss += loss.item()
+#         loop.set_description(f"Epoch {epoch + 1}")
+#         loop.set_postfix(loss=loss.item())
+
+#     print(f"Training Loss: {train_loss / len(small_train_dataset)}")
+
+#     # Evaluation
+#     model.eval()
+#     all_predictions = []
+#     all_labels = []
+#     with torch.no_grad():
+#         for batch in small_eval_dataset:
+#             batch = {k: v.to(device) for k, v in batch.items()}
+#             outputs = model(**batch)
+#             predictions = torch.argmax(outputs.logits, dim=-1)
+#             all_predictions.extend(predictions.cpu().numpy())
+#             all_labels.extend(batch["labels"].cpu().numpy())
+    
+#     eval_results = accuracy.compute(predictions=all_predictions, references=all_labels)
+#     print(f"Validation Accuracy: {eval_results['accuracy']}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #found documentation and example on how to implement collate_fn method to use in dataloader to
 #fix size problem
@@ -93,15 +151,25 @@ def collate_fn(batch):
     }
     #return{"input_ids": input_ids, "labels": labels}
 
+
+# while True:
+#     a = input()
+#     if a == "-1":
+#         break
+#     try:
+#         exec(a)
+#     except:
+#         pass
+
 data_collator = DataCollatorWithPadding(tokenizer)
+
 
 training_args = TrainingArguments(
     output_dir="test_trainer", 
     eval_strategy="epoch",
     logging_dir="logs",
     logging_strategy="steps",
-    logging_steps=10,
-    use_cpu=True
+    logging_steps=10
 )
 
 metric = evaluate.load("accuracy")

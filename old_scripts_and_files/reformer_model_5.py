@@ -5,20 +5,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
-from transformers import BertTokenizer, BertModel
+from transformers import AutoTokenizer, ReformerModel
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
-
-
-# Parameters Start
-
-model_name = "bert-base-uncased"
-model_save_path = f"{model_name.replace('/', '_ _')}_finetuned.pth" # Do not change
-
-# Tested model names: bert-base-uncased, bert-base-cased
-
-
-# Parameters End
 
 
 class TextDataset(Dataset):
@@ -36,17 +25,17 @@ class TextDataset(Dataset):
 
 
 class TextClassifier(nn.Module):
-    def __init__(self, model_name, num_classes=2):
+    def __init__(self, model_name='google/reformer-crime-and-punishment', num_classes=2):
         super(TextClassifier, self).__init__()
-        self.bert = BertModel.from_pretrained(model_name)
+        self.reformer = ReformerModel.from_pretrained(model_name)
         self.dropout = nn.Dropout(0.3)
-        self.fc1 = nn.Linear(self.bert.config.hidden_size, 128)
+        self.fc1 = nn.Linear(self.reformer.config.hidden_size, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc_out = nn.Linear(64, num_classes)
         self.relu = nn.ReLU()
 
     def forward(self, input_ids, attention_mask):
-        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        outputs = self.reformer(input_ids=input_ids, attention_mask=attention_mask)
         pooled_output = outputs.pooler_output
 
         x = self.fc1(pooled_output)
@@ -62,7 +51,14 @@ class TextClassifier(nn.Module):
 
         return probabilities
 
-def main():
+
+if __name__ == '__main__':
+    # Parameters Start
+
+    model_save_path = "reformer_model_default.pth"
+
+    # Parameters End
+
     # Get data as a pandas dataframe. Msg_type is 0 for human code and 1 for AI code.
     df = get_model_training_data.get_dataframe()
     df['msg_type'] = df['label'].map({'human': 0, 'ai': 1})
@@ -70,9 +66,10 @@ def main():
 
     # Split the data into training/testing data with only two columns, msg_type and code_sample
     train_texts, test_texts, train_labels, test_labels = train_test_split(df['code_sample'], df['msg_type'], test_size=0.2,
-                                                                    random_state=42)
+                                                                      random_state=42)
 
-    tokenizer = BertTokenizer.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained('google/reformer-crime-and-punishment')
+    tokenizer.pad_token = tokenizer.eos_token
 
     print('Beginning tokenization...')
     start_time = time.time()
@@ -92,7 +89,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
     # Instantiate the model, loss function, and optimizer
-    model = TextClassifier(model_name=model_name)
+    model = TextClassifier()
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=2e-5)
@@ -103,7 +100,7 @@ def main():
     print(f'Device: {str(device).upper()}\n')
 
     # Training loop
-    num_epochs = 20
+    num_epochs = 10
 
     for epoch in range(num_epochs):
         model.train()
@@ -149,6 +146,3 @@ def main():
     accuracy = 100 * correct / total
 
     print(f'\n\nTest Loss: {avg_test_loss: .4f}, Test Accuracy: {accuracy: .2f}%')
-
-if __name__ == '__main__':
-    main()

@@ -22,8 +22,8 @@ import constants
 
 # Parameters Start
 
-input_folder = "py_from_java_lambda_attempt_2"
-output_folder = "cleaned_ai_data_7"
+input_folder = "ai_generated_presentation_example"
+output_folder = "presentation_example_clean_ai_data"
 
 # Parameters End
 

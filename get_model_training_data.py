@@ -43,6 +43,16 @@ CODE_UPLOAD_FOLDERS = [
     "cleaned_ai_data_7"
 ]
 
+SKIP_THESE_FILES = [ # so they are valid test data later
+    "2.java_3437.py", #AI
+    "discourse_posts_histogram_chatgpt.py", #AI
+    "manim__manim__animation__creation_9.py", #HUMAN
+    "superset__superset__migrations__versions__f1f2d4af5b90__5744.py", # HUMAN
+    "transformers__src__transformers__models__luke____init___4677.py", #HUMAN
+    "275.java_3007.py", # AI
+
+]
+
 AI_LABEL = 'ai'
 HUMAN_LABEL = 'human'
 
@@ -66,8 +76,8 @@ def _get_text_from_file(path: str):
             pass
     print(f"{path} could not be accessed. Most likely, the CSV did not have the exact path.") #TODO: should never happen. this happens when the filename in about_samples.csv is not an exact match of the actual filename
 
-def _get_samples_from_folder(folderpath: str) -> dict[str, str]:
-    code_samples : dict[str, str] = dict()
+def _get_samples_from_folder(folderpath: "str") -> "dict[str, str]":
+    code_samples : "dict[str, str]" = dict()
 
     path_to_samples = os.path.join(folderpath, ABOUT_SAMPLES_PATH)
     samples_file = open(path_to_samples, 'r')
@@ -77,6 +87,9 @@ def _get_samples_from_folder(folderpath: str) -> dict[str, str]:
             continue
         if i % 100 == 0:
             print(f"Starting row {i}")
+        if row[0] in SKIP_THESE_FILES:
+            print(f"Skipped {row[0]}, because it was in SKIP_THESE_FILES.")
+            continue
         code = _get_text_from_file(
             os.path.join(folderpath, row[0]))
         if code is not None: #TODO: this code shouldn't be None. unclear why this is happening (probably misformatting?)
@@ -86,7 +99,7 @@ def _get_samples_from_folder(folderpath: str) -> dict[str, str]:
         #print(row)
     return code_samples    
 
-def get_dataframe(balance_dataset=True, random_seed=None, code_sample_labeled_as_text=False, max_samples=-1, use_numeric_labels=False):
+def get_dataframe(balance_dataset=True, random_seed=None, code_sample_labeled_as_text=False, max_samples=-1, use_numeric_labels=False, label_column_name="label"):
     """
     Returns the dataframe, containing all the specified data.
 
@@ -129,6 +142,6 @@ def get_dataframe(balance_dataset=True, random_seed=None, code_sample_labeled_as
         chosen_human_samples = [code for code in code_samples if code_samples[code] == HUMAN_LABEL]
     
 
-    df = pd.DataFrame({"label" : [AI_LABEL if not use_numeric_labels else 1] * len(chosen_ai_samples) + [HUMAN_LABEL if not use_numeric_labels else 0] * len(chosen_human_samples), 
+    df = pd.DataFrame({label_column_name : [AI_LABEL if not use_numeric_labels else 1] * len(chosen_ai_samples) + [HUMAN_LABEL if not use_numeric_labels else 0] * len(chosen_human_samples), 
                        ("code_sample" if not code_sample_labeled_as_text else "text") : chosen_ai_samples + chosen_human_samples})
     return df
