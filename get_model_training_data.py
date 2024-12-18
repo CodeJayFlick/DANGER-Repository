@@ -42,17 +42,9 @@ CODE_UPLOAD_FOLDERS = [
     "cleaning_attempt_6",
     "cleaned_ai_data_7"
 ]
-
-SKIP_THESE_FILES = [ # so they are valid test data later
-    "2.java_3437.py", #AI
-    "discourse_posts_histogram_chatgpt.py", #AI
-    "manim__manim__animation__creation_9.py", #HUMAN
-    "superset__superset__migrations__versions__f1f2d4af5b90__5744.py", # HUMAN
-    "transformers__src__transformers__models__luke____init___4677.py", #HUMAN
-    "275.java_3007.py", # AI
-
+SKIP_THESE_FILES = [
+    "2.java_3437.py", 
 ]
-
 AI_LABEL = 'ai'
 HUMAN_LABEL = 'human'
 

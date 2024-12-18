@@ -14,6 +14,7 @@ from tqdm import tqdm
 
 model_name = "bert-base-uncased"
 model_save_path = f"{model_name.replace('/', '_ _')}_finetuned.pth" # Do not change
+num_epochs = 20
 
 # Tested model names: bert-base-uncased, bert-base-cased
 
@@ -103,7 +104,6 @@ def main():
     print(f'Device: {str(device).upper()}\n')
 
     # Training loop
-    num_epochs = 20
 
     for epoch in range(num_epochs):
         model.train()

@@ -1,0 +1,7 @@
+Filename of Serialized Model,Base Model,Model Type,Accuracy on Test Data,Epochs Used
+default_BERT_model.pth,bert-base-uncased,BERT,.9835,10
+bert-base-uncased_finetuned_2.pth,bert-base-uncased,BERT,.9827,20
+bert-base-cased_finetuned.pth,bert-base-cased,BERT,.9637,10
+bert-base-cased_finetuned_2.pth,bert-base-cased,BERT,.9940,20
+roberta-base_finetuned.pth,roberta-base,RoBERTa,.9859,10
+roberta-based_finetuned_2.pth,roberta-base,RoBERTa,.4933,20
